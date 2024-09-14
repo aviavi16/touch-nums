@@ -75,3 +75,15 @@ function openInstructions(){
 function openNew(){
 
 }
+
+function onCloseModal() {
+	document.querySelector('.modal').close()
+}
+
+function flashMsg(msg) {
+	const el = document.querySelector('.user-msg')
+
+	el.innerText = msg
+	el.classList.add('open')
+	setTimeout(() => el.classList.remove('open'), 3000)
+}
