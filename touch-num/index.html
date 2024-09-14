@@ -5,10 +5,30 @@
         <title>Try Stuff</title>
         <link rel="stylesheet" href="css/main.css">
     </head>
-    <body onload="onInit()">
-        <div class="container">
+    <body onload="app.onInit()">
+        <div class="header-container">
+            <div class="title-container">
+                <span> A game of learning and fun! </span>
+            </div>
+            
+            <div class="links">
+                <a onclick="app.openInstructions()"> Instructions </a>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <h1> Touch The Numbers: By Order ! </h1>
+            <button type="button" onclick="app.openNew()" class="new-game-btn" > New Game </button>
+            
+            <dialog class="modal">
+                <h3></h3>
+                <p></p>
+                <button onclick="app.onCloseModal()">Close</button>
+            </dialog>
+
+
             <div class="myDynamicTable"></div>
-            <script src="main.js"></script>
+            <script type="module" src="js/app.controller.js"></script>
         </div>
 
         
