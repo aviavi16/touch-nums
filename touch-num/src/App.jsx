@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { StopWatch } from "../cmps/StopWatch";
+import { StopWatch } from "./cmps/StopWatch";
+import { Victory } from "./cmps/Victory";
 
 
 export function App() {
@@ -79,6 +80,7 @@ export function App() {
 
 
     function choose(cell){
+        console.log('cell.innerText:', cell.innerText + " " + _currentNumber.current)
         if (parseInt(cell.innerText) === _currentNumber.current)
             success()
         else
@@ -92,13 +94,21 @@ export function App() {
         _currentNumber.current++;
         if ( _currentNumber.current === gSize) 
             win()
-        console.log('nextNum:', nextNum)
 
         setNextNum (prev => prev + 1)
     }
 
     function win(){
-       alert ( ' You Have Won !')
+        clearInterval(timeInterval.current);
+        setNextNum(0)
+       
+       const el = document.querySelector('.victory-container')
+        el.classList.add('show')
+    }
+
+    function getWinTime(){
+        console.log('timer:', timer)
+        return timer
     }
 
     function openInstructions(){
@@ -148,16 +158,28 @@ export function App() {
     };
         
     const handleReset = () => {
+        const el = document.querySelector('.victory-container.show')
+        console.log('el:', el)
+        if(el)
+            el.className = 'victory-container';
         deleteOlderGame();
         setNextNum(0)
         setGameStarted(false);
         clearInterval(timeInterval.current);
         setTimer(0);
+        _currentNumber.current = 0;
     };
 
+    const handleTest = () => {
+        const el = document.querySelector('.score')
+        el.classList.add('show')
+
+    };
 
     return (
         <section className="app-container">
+                    <Victory getTime={timer} onReset={handleReset} onPause={handleTest}/> 
+
         <div className="header-container">
             <div className="title-container">
                 <span className="title"> A game of learning and fun! </span>
@@ -170,14 +192,15 @@ export function App() {
 
         <section className="table-container">
             <h1> Touch The Numbers: By Order ! </h1>
-            <button type="button" onClick={openNew} className="new-game-btn" > New Game </button>
-            <button type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
-            <button type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+            <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
+            <button name="pause" type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
+            <button name="quit" type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
 
             <dialog className="modal">
                 <h3> Please Select Difficulty: </h3>
                 <select  
                     className="difficulty-container"
+                    name="difficulty"
                 >  
                 <option value="Easy"> Easy </option>
                 <option value="Medium"> Medium </option>
@@ -187,13 +210,13 @@ export function App() {
                 </select>
 
 
-                <button onClick={onCloseModal}> Cancel </button>
-                <button onClick={startGame}> Start </button>
+                <button name="cancel" onClick={onCloseModal}> Cancel </button>
+                <button name="start" onClick={startGame}> Start </button>
                 
             </dialog>
 
             <dialog className="pause-modal">            
-                <button onClick={onClosePause}> Continue </button>            
+                <button name="continue" onClick={onClosePause}> Continue </button>            
             </dialog>
 
             <section className="stop-watch-container">
