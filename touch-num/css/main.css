@@ -142,3 +142,17 @@ h1{
     font-size: 15px;
     font-weight: bold;
 }
+
+.pause-modal{
+    width: 500px;
+    height: 500px;
+
+    button{
+        height: 50px;
+        font-size: 40px;
+    }
+}
+
+.stop-watch-container{
+    margin-inline: 20px;
+}

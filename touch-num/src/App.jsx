@@ -6,40 +6,39 @@ export function App() {
     const [ gameStarted, setGameStarted ] = useState( false )
     const [ timer, setTimer ] = useState( 0 )
     const [ nextNum , setNextNum ] = useState( 0 )
-
+    let  _currentNumber = useRef(0)
     let  timeInterval = useRef(null)
 
     var gDifficulty = 'Easy'
+    var gSize = 16;
 
     function startGame(){
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
-        deleteOlderGame();
         handleReset();
 
-        var size = 0;
         console.log('gDifficulty:', gDifficulty)
         switch (gDifficulty){
             case 'Medium':
-                size = 25;
+                gSize = 25;
                 break;
             case 'Hard':
-                size = 36;
+                gSize = 36;
                 break;
             case 'Easy': 
             default:
-                size = 16;
+                gSize = 16;
                 break;
         }
-        console.log('gDifficulty:', size)
+        console.log('gDifficulty:', gSize)
     
         var div = document.querySelector('.myDynamicTable');
         var table = document.createElement('table');
         table.className= 'table';
         var tableBody = document.createElement('tbody');
-        var numberOfRowCols = Math.sqrt(size);
+        var numberOfRowCols = Math.sqrt(gSize);
     
-        var allNums = Array(size).fill().map((_, i) => i * 1);
+        var allNums = Array(gSize).fill().map((_, i) => i * 1);
         shuffleArray(allNums);
     
         for (var i = 0; i < numberOfRowCols; i++) {
@@ -77,13 +76,43 @@ export function App() {
     
     }
 
+
+
     function choose(cell){
-        console.log('cell:', cell)
+        if (parseInt(cell.innerText) === _currentNumber.current)
+            success()
+        else
+            return
         cell.className += ' choose';
+        return
+    }
+
+    function success(){
+        console.log('success:')
+        _currentNumber.current++;
+        if ( _currentNumber.current === gSize) 
+            win()
+        console.log('nextNum:', nextNum)
+
+        setNextNum (prev => prev + 1)
+    }
+
+    function win(){
+       alert ( ' You Have Won !')
     }
 
     function openInstructions(){
 
+    }
+
+    function openPause(){
+        const elName = document.querySelector('.pause-modal')
+        elName.showModal() 
+    }
+
+    function onClosePause(){
+        document.querySelector('.pause-modal').close()
+        handleStart();
     }
 
     function openNew(){
@@ -106,7 +135,6 @@ export function App() {
 
     const handleStart = () => {
         setGameStarted(true);
-        setTimer(0);
         timeInterval.current = setInterval(() => {
             setTimer((prev) => prev + 1);
         }, 10);
@@ -114,11 +142,14 @@ export function App() {
 
     const handlePause = () => {
         if (!gameStarted) return;
+        openPause();
         setGameStarted(false);
         clearInterval(timeInterval.current);
     };
         
     const handleReset = () => {
+        deleteOlderGame();
+        setNextNum(0)
         setGameStarted(false);
         clearInterval(timeInterval.current);
         setTimer(0);
@@ -140,7 +171,9 @@ export function App() {
         <section className="table-container">
             <h1> Touch The Numbers: By Order ! </h1>
             <button type="button" onClick={openNew} className="new-game-btn" > New Game </button>
-            
+            <button type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
+            <button type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+
             <dialog className="modal">
                 <h3> Please Select Difficulty: </h3>
                 <select  
@@ -159,8 +192,15 @@ export function App() {
                 
             </dialog>
 
-            <StopWatch time ={ timer }/>
-            <span >     the next number is : {nextNum} </span>
+            <dialog className="pause-modal">            
+                <button onClick={onClosePause}> Continue </button>            
+            </dialog>
+
+            <section className="stop-watch-container">
+                <StopWatch time ={ timer }/>
+                <span >     the next number is : {nextNum} </span>
+            </section>
+            
 
             <div className="myDynamicTable"></div>
         </section>
