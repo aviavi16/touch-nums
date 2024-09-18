@@ -13,7 +13,8 @@
 }
 
 .header-container{
-    width : 400px; 
+    width : 600px; 
+    height : 55vh;
     background-color: aquamarine;
     display: flex;
     justify-content: space-between;
