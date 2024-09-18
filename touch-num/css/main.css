@@ -8,13 +8,12 @@
 .table-container{
     background-color: lightblue;
     width : 400px; 
-    height : 85vh;
+    height : 55vh;
     
 }
 
 .header-container{
     width : 600px; 
-    height : 55vh;
     background-color: aquamarine;
     display: flex;
     justify-content: space-between;
@@ -29,7 +28,8 @@
 
 @media screen and (min-width : 922px) {
     .table-container{
-        width : 100%;         
+        width : 100%;   
+        height : 85vh;      
     }
 
     .header-container{
