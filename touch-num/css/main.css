@@ -115,6 +115,15 @@
     font-size: 16px;
 }
 
+.td{
+    background-color: #bbb2b2;
+    text-align:center;
+    padding: 7px;
+    border-collapse: separate;
+    border-radius: 8px;
+    border-spacing: 0;
+}
+
 @media screen and (min-width : 922px) {
     .table-container{
         font-size: 16px;   
@@ -142,6 +151,10 @@
     h1{
         margin: 50px;
     }
+
+    .td{
+        padding: 15px;
+    }
 }
 
 
@@ -167,14 +180,7 @@ body{
     flex-wrap: wrap;
 }
 
-.td{
-    background-color: #bbb2b2;
-    text-align:center;
-    padding: 15px;
-    border-collapse: separate;
-    border-radius: 8px;
-    border-spacing: 0;
-}
+
 
 .table{
     font-size: 22px;
