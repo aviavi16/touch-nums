@@ -192,10 +192,15 @@ export function App() {
 
         <section className="table-container">
             <h1> Touch The Numbers: By Order ! </h1>
-            <div className="buttons-container">
-                <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
-                <button name="pause" type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
-                <button name="quit" type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+            <div className="buttons-watch-container">
+                <div className="buttons-container">
+                    <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
+                    <button name="pause" type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
+                    <button name="quit" type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+                </div>
+                <div className="stop-watch-container">
+                        <StopWatch time ={ timer }/>                 
+                </div>
             </div>
             
 
@@ -211,7 +216,7 @@ export function App() {
 
 
                 </select>
-
+            
 
                 <button name="cancel" onClick={onCloseModal}> Cancel </button>
                 <button name="start" onClick={startGame}> Start </button>
@@ -222,11 +227,8 @@ export function App() {
                 <button name="continue" onClick={onClosePause}> Continue </button>            
             </dialog>
 
-            <section className="stop-watch-container">
-                <StopWatch time ={ timer }/>
-                <span >     the next number is : {nextNum} </span>
-            </section>
             
+            <span >     the next number is : {nextNum} </span>
 
             <div className="myDynamicTable"></div>
         </section>

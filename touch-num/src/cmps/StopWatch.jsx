@@ -20,8 +20,9 @@ export function StopWatch( { time } ){
 
     return (
         <section className="stopWatch-container">
-            <h2 > Time: </h2>
+            
             <div className="timer-container">
+                <h2 > Time: </h2>
                 <div className="timer-box">
                     <h1>{minutes}</h1>
                 </div>
