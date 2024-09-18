@@ -8,7 +8,8 @@
 .table-container{
     background-color: lightblue;
     width : 600px; 
-    height : 55vh;
+    height : 85vh;   
+    font-size: 26px;
     
 }
 
@@ -17,7 +18,7 @@
     background-color: aquamarine;
     display: flex;
     justify-content: space-between;
-
+    font-size: 26px;
 }
 
 .buttons-container{
@@ -29,11 +30,12 @@
 @media screen and (min-width : 922px) {
     .table-container{
         width : 100%;   
-        height : 85vh;      
+        font-size: 16px;   
     }
 
     .header-container{
         width: 100%;
+        font-size: 16px;
     }
 
     .buttons-container{
