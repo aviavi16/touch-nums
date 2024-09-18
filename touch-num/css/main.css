@@ -124,6 +124,10 @@
     border-spacing: 0;
 }
 
+.stop-watch-container h2{
+    font-size: 20px;  
+}
+
 @media screen and (min-width : 922px) {
     .table-container{
         font-size: 16px;   
@@ -154,6 +158,13 @@
 
     .td{
         padding: 15px;
+    }
+
+    .stop-watch-container{
+        margin-inline: 20px;
+        h2{
+            font-size: 52px; 
+        }
     }
 }
 
@@ -222,6 +233,4 @@ body{
     }
 }
 
-.stop-watch-container{
-    margin-inline: 20px;
-}
+

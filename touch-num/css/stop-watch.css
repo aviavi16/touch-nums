@@ -1,7 +1,13 @@
+.stopWatch-container{
+  height: 100%;
+  min-width: 200px;
+}
+
 .timer-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
   }
   
   .timer-box {
