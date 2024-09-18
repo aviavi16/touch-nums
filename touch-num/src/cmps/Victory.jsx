@@ -24,8 +24,12 @@ export function Victory({ getTime , onReset ,onPause }){
     }
     return (
         <section className="victory-container">
-            <span className="score"> Score: {calculate(getTime)} </span>
-            <div className="victory"></div>
+            <div className="win-title-container">
+                <div className="victory"></div>
+                <span className="score"> Score: {calculate(getTime)} </span>
+
+            </div>
+            
             <div className="imposter">
                 <div className="spacesuit">
                 <div className="chest-and-head"></div>

@@ -34,12 +34,15 @@ html {
   font-size: 4rem;
   font-weight: 400;
   color: #018bfb;
-  position: fixed;
-  top: 40px;
 }
 
 .victory:after {
   content: "Victory";
+}
+
+.win-title-container{
+  position: fixed;
+  top: 40px;
 }
 
 .score{
@@ -48,8 +51,6 @@ html {
   font-size: 4rem;
   font-weight: 400;
   color: #018bfb;
-  position: fixed;
-  top: 150px;
 }
 
 .score.show{
