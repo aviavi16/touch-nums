@@ -20,6 +20,12 @@
 
 }
 
+.buttons-container{
+    display: flex;
+    flex-direction: column;
+}
+
+
 @media screen and (min-width : 922px) {
     .table-container{
         width : 100%;         
@@ -27,6 +33,10 @@
 
     .header-container{
         width: 100%;
+    }
+
+    .buttons-container{
+        flex-direction: row;
     }
     
 }

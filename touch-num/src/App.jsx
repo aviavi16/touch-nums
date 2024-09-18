@@ -192,9 +192,12 @@ export function App() {
 
         <section className="table-container">
             <h1> Touch The Numbers: By Order ! </h1>
-            <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
-            <button name="pause" type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
-            <button name="quit" type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+            <div className="buttons-container">
+                <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
+                <button name="pause" type="button" onClick={handlePause} className="new-game-btn" > Pause Game </button>
+                <button name="quit" type="button" onClick={handleReset} className="new-game-btn" > Quit Game </button>
+            </div>
+            
 
             <dialog className="modal">
                 <h3> Please Select Difficulty: </h3>
