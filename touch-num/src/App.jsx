@@ -191,7 +191,7 @@ export function App() {
         </div>
 
         <section className="table-container">
-            <h1> Touch The Numbers: By Order ! </h1>
+            <h1 className="sub-title"> Touch The Numbers: By Order ! </h1>
             <div className="buttons-watch-container">
                 <div className="buttons-container">
                     <button name="start" type="button" onClick={openNew} className="new-game-btn" > New Game </button>
