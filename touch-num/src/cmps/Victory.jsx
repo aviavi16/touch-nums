@@ -18,7 +18,7 @@ export function Victory({ getTime , onReset ,onPause }){
     }
 
     function calculate(score){
-        score = 10000 - (10000*score)/(10000 + score)
+        score = Math.floor(10000 - (10000*score)/(10000 + score))
 
         return score;
     }
