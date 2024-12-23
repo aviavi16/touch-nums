@@ -1,5 +1,11 @@
 .hint-container{
-    display: grid;
+    display: flex;
     justify-content: center;
     padding: 5px;
+}
+
+.image-hint{
+    width: 20px;
+    height: 20px;
+    filter: opacity(0.2) drop-shadow(0 0 0 yellow);
 }
