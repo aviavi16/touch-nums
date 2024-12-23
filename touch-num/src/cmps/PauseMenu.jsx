@@ -8,7 +8,7 @@ export function PauseMenu({onClosePause } ){
                     </div>
                     <button name="continue" onClick={onClosePause}> Continue </button> 
                 </div>
-                <img src="/touch-nums/src/imgs/woodenBg.jpg" height="2848" width="4288" className="img" />
+                <img src="touch-nums/src/imgs/woodenBg.jpg" height="2848" width="4288" className="img" />
             </div>
            
             

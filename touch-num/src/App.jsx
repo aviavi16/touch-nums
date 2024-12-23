@@ -258,10 +258,10 @@ export function App() {
                             <Hint className="hint-container" nextNum={nextNum}/>
                             {kidsMode ? 
                                 <img className="adultModeImage" onClick={endKidsMode} 
-                                    src="/touch-nums/src/imgs/adultMode.jfif"/>
+                                    src="touch-nums/src/imgs/adultMode.jfif"/>
                                     : 
                                 <img className="kidsModeImage" onClick={startKidsMode} 
-                                    src="/touch-nums/src/imgs/kidsMode.png"/> 
+                                    src="touch-nums/src/imgs/kidsMode.png"/> 
 
                             }
                             <StopWatch time={timer}/>                 
