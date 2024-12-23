@@ -35,13 +35,14 @@
 
 .header-bg-container{
     background-color: aquamarine;
+    height: 100%;
 }
 
 .header-sub-container{
     height: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 26px;
+    font-size: 14px;
     margin-inline: 10px;
 }
 
@@ -71,7 +72,9 @@
         font-size: 16px;
     }
 
-
+    .header-sub-container{
+        font-size: 26px;
+    }
 
     h1{
         margin: 50px;
@@ -79,6 +82,12 @@
 
     .td{
         padding: 15px;
+    }
+
+    .kidsModeImage{
+        width: 100px;
+        height: 100px;
+        margin-right: 130px;
     }
 }
 
@@ -162,8 +171,11 @@ body{
 }
 
 .kidsModeImage{
+    width: 50px;
+    height: 50px;
     cursor: pointer;
-    width: 100px;
-    height: 100px;
-    margin-right: 130px;
+}
+
+.stop-watch-container{
+    display: flex;
 }

@@ -1,13 +1,28 @@
 .hint-container{
     display: flex;
     justify-content: center;
+    align-content: center;
     padding: 5px;
+    width: 100%;
     span{
         display: block;
     }
     div{
         width: auto;
         height: auto;
+    }
+    .hint-wrapping{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        border-radius: 50%;
+    }
+    img{
+        align-self: center;
+    }
+    span{
+        align-self: center;
     }
 }
 
@@ -32,5 +47,11 @@
         border-radius: 50%;
         font-size: xx-large;
         font-weight: 700;
+    }
+}
+
+@media screen and (min-width : 922px) {
+    .hint-container{
+        width: auto;
     }
 }

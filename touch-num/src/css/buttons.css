@@ -23,10 +23,10 @@
     cursor: pointer;
     display: inline-block;
     font-family: din-round,sans-serif;
-    font-size: 15px;
+    font-size: 8px;
     font-weight: 700;
     letter-spacing: .8px;
-    line-height: 20px;
+    line-height: 15px;
     margin: 0;
     outline: none;
     overflow: visible;
@@ -40,7 +40,7 @@
     -webkit-user-select: none;
     vertical-align: middle;
     white-space: nowrap;
-    width: 130px;
+    width: 80px;
 
 }
 
@@ -90,10 +90,12 @@
     }
 
     .new-game-btn{
-        width: 200px;
-
+        width: 200px;     
         font-size: 25px;
+        line-height: 20px;
     }
+
+
 
     
 }
