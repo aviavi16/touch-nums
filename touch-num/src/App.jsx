@@ -4,6 +4,8 @@ import { Buttons } from "./cmps/Buttons";
 import { Hint } from "./cmps/Hint";
 import { StopWatch } from "./cmps/StopWatch";
 import { PauseMenu } from "./cmps/PauseMenu";
+import adultMode from "./imgs/adultMode.jfif"
+import kidMode from "./imgs/kidsMode.png"
 
 export function App() {
     const [ kidsMode, setKidsMode ] = useState( false )
@@ -258,10 +260,10 @@ export function App() {
                             <Hint className="hint-container" nextNum={nextNum}/>
                             {kidsMode ? 
                                 <img className="adultModeImage" onClick={endKidsMode} 
-                                    src="touch-nums/src/imgs/adultMode.jfif"/>
+                                    src={adultMode}/>
                                     : 
                                 <img className="kidsModeImage" onClick={startKidsMode} 
-                                    src="touch-nums/src/imgs/kidsMode.png"/> 
+                                    src={kidMode}/> 
 
                             }
                             <StopWatch time={timer}/>                 
