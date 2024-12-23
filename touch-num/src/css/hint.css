@@ -2,10 +2,35 @@
     display: flex;
     justify-content: center;
     padding: 5px;
+    span{
+        display: block;
+    }
+    div{
+        width: auto;
+        height: auto;
+    }
 }
 
 .image-hint{
     width: 20px;
     height: 20px;
     filter: opacity(0.2) drop-shadow(0 0 0 yellow);
+}
+
+.hint-container.kids{
+    span{
+        display: none;
+    }
+    .hint-wrapping{
+        width: 150px;
+        height: 150px;
+        background-color: yellow;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        border-radius: 50%;
+        font-size: xx-large;
+        font-weight: 700;
+    }
 }

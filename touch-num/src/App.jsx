@@ -3,8 +3,10 @@ import { Victory } from "./cmps/Victory";
 import { Buttons } from "./cmps/Buttons";
 import { Hint } from "./cmps/Hint";
 import { StopWatch } from "./cmps/StopWatch";
+import { PauseMenu } from "./cmps/PauseMenu";
 
 export function App() {
+    const [ kidsMode, setKidsMode ] = useState( false )
     const [ gameStarted, setGameStarted ] = useState( false )
     const [ timer, setTimer ] = useState( 0 )
     const [ nextNum , setNextNum ] = useState( 0 )
@@ -17,7 +19,12 @@ export function App() {
     function startGame(){
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
-        handleReset();
+        deleteOlderGame();
+        setNextNum(0)
+        setGameStarted(false);
+        clearInterval(timeInterval.current);
+        setTimer(0);
+        _currentNumber.current = 0;
 
         console.log('gDifficulty:', gDifficulty)
         switch (gDifficulty){
@@ -150,19 +157,18 @@ export function App() {
         timeInterval.current = setInterval(() => {
             setTimer((timer) => timer + 10);
         }, 10);
-    };
+    }
 
     const handlePause = () => {
         if (!gameStarted) return;
         openPause();
         setGameStarted(false);
         clearInterval(timeInterval.current);
-    };
+    }
         
     const handleReset = () => {
         const el = document.querySelector('.victory-container.show')
         const buttonsEl = document.querySelector('.buttons-container.hide')
-        console.log('el:', el)
         if(el){
             el.className = 'victory-container';
             buttonsEl.className = 'buttons-container';
@@ -174,39 +180,90 @@ export function App() {
         clearInterval(timeInterval.current);
         setTimer(0);
         _currentNumber.current = 0;
+
+        if(kidsMode){
+            const buttonsEl = document.querySelector('.buttons-container')
+            buttonsEl.classList.add('hide')
+            gDifficulty = 'Easy'
+            startGame()
+            const tableEl = document.querySelector('.table')
+            tableEl.classList.add('big')
+        }
     }
 
     const handleTest = () => {
         const el = document.querySelector('.score')
         el.classList.add('show')
 
-    };
+    }
+
+    function startKidsMode() {
+        setKidsMode(true)
+        const buttonsEl = document.querySelector('.buttons-container')
+        buttonsEl.classList.add('hide')
+        const timerEl = document.querySelector('.stop-watch')
+        timerEl.classList.add('hide')
+        const titleEl = document.querySelector('.sub-title')
+        titleEl.classList.add('hide')
+        const hintEl = document.querySelector('.hint-container')
+        hintEl.classList.add('kids')
+        gDifficulty = 'Easy'
+        startGame()
+        const tableEl = document.querySelector('.table')
+        tableEl.classList.add('big')
+    }
+
+    function endKidsMode() {
+        setKidsMode(false)
+        const buttonsEl = document.querySelector('.buttons-container.hide')
+        buttonsEl.className = 'buttons-container';
+        const timerEl = document.querySelector('.stop-watch.hide')
+        timerEl.className = 'stop-watch';
+        const titleEl = document.querySelector('.sub-title.hide')
+        titleEl.className = 'sub-title';
+        const hintEl = document.querySelector('.hint-container.kids')
+        hintEl.className = 'hint-container';
+        deleteOlderGame();
+        setNextNum(0)
+        setGameStarted(false);
+        clearInterval(timeInterval.current);
+        setTimer(0);
+        _currentNumber.current = 0;
+    }
 
     return (
         <section className="app">
             <div className="header-container">
                 <Victory getTime={timer} onReset={handleReset} onPause={handleTest}/> 
-                <div className="header-sub-container">
-                    <div className="title-container">
-                        <span className="title"> A game of learning and fun! </span>
-                    </div>
-                    
-                    <div className="links">
-                        <a onClick={openInstructions}> Instructions </a>
+                <div className="header-bg-container">
+                    <div className="header-sub-container">
+                        <div className="title-container">
+                            <span className="title"> A game of learning and fun! </span>
+                        </div>
+                        
+                        <div className="links" onClick={openInstructions}>
+                            Instructions 
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div className="app-bg-container">
                 <div className="app-container">
-                    
-
                     <div className="buttons-watch-container">
                         <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} />
                     </div>
                     <div className="display-panel-container">
                         <div className="stop-watch-container">
                             <Hint className="hint-container" nextNum={nextNum}/>
+                            {kidsMode ? 
+                                <img className="adultModeImage" onClick={endKidsMode} 
+                                    src="/touch-nums/src/imgs/adultMode.jfif"/>
+                                    : 
+                                <img className="kidsModeImage" onClick={startKidsMode} 
+                                    src="/touch-nums/src/imgs/kidsMode.png"/> 
+
+                            }
                             <StopWatch time={timer}/>                 
                         </div>
                         
@@ -237,8 +294,8 @@ export function App() {
                             
                         </dialog>
 
-                        <dialog className="pause-modal">            
-                            <button name="continue" onClick={onClosePause}> Continue </button>            
+                        <dialog className="pause-modal">    
+                            <PauseMenu onClosePause={onClosePause}/>
                         </dialog>
 
                         

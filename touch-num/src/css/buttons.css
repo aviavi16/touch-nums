@@ -86,7 +86,7 @@
 @media screen and (min-width : 922px) {
     .buttons-container{
         flex-direction: row;
-        padding: 10px;
+        padding: 85px;
     }
 
     .new-game-btn{

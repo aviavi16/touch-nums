@@ -13,6 +13,10 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.stop-watch.hide {
+  display: none;
+}
+
 @media screen and (min-width : 922px) {
   .stop-watch-container{
     display: flex;
