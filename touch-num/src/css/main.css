@@ -1,0 +1,145 @@
+@viewport {
+    width: device-width;
+    zoom:1;
+ }
+
+ .app{
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+ }
+ 
+ .app-bg-container{
+    background-color: lightblue;
+    height: 100%;
+ }
+
+.app-container{
+    display: grid;
+    height: 100%;
+    grid-template-areas: 'buttons' 'display-panel' 'main-display';
+    margin-inline: 20px;
+    grid-template-rows: 0.2fr 0.2fr 2.7fr;
+}
+
+.table-container{
+    width : 100%; 
+    height : 100%;   
+    font-size: 26px;  
+    grid-area: main-display;
+}
+
+.header-container{
+    height: 40px;
+}
+
+.header-sub-container{
+    height: 100%;
+    width : 100%; 
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-between;
+    font-size: 26px;
+}
+
+.sub-title{
+    font-size: 16px;
+}
+
+.td{
+    background-color: #bbb2b2;
+    text-align:center;
+    padding: 7px;
+    border-collapse: separate;
+    border-radius: 8px;
+    border-spacing: 0;
+}
+
+@media screen and (min-width : 922px) {
+    .table-container{
+        font-size: 16px;   
+    }
+
+    .header-container{
+        font-size: 16px;
+    }
+
+
+
+    h1{
+        margin: 50px;
+    }
+
+    .td{
+        padding: 15px;
+    }
+}
+
+body{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    font-family: Comic Sans MS;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    height: 100%;
+}
+
+.myDynamicTable{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-content: start;
+    margin-block-start: 10px;
+    flex-wrap: wrap;
+}
+
+
+
+.table{
+    font-size: 22px;
+    background-color: lightgreen;
+    font: bold;
+}
+
+.td.choose{
+    background-color:  rgb(248, 184, 65);
+}
+
+
+.links{
+    cursor: pointer;
+    margin-inline: 10px;
+}
+
+.title{
+    margin-inline: 10px;
+}
+
+.difficulty-selector{
+    border: none;
+    appearance: none;
+    padding: 0 30px 0 15px;
+    color: white;
+    background-color: #80acff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.pause-modal{
+    width: 500px;
+    height: 500px;
+
+    button{
+        height: 50px;
+        font-size: 40px;
+    }
+}
+
+.display-panel-container{
+    grid-area: display-panel;
+    display: grid;
+    grid-template-rows: auto;
+}
+
