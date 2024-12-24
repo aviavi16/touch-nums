@@ -259,10 +259,10 @@ export function App() {
                         <div className="stop-watch-container">
                             <Hint className="hint-container" nextNum={nextNum}/>
                             {kidsMode ? 
-                                <img className="adultModeImage" onClick={endKidsMode} 
+                                <img className="adult-mode-image" onClick={endKidsMode} 
                                     src={adultMode}/>
                                     : 
-                                <img className="kidsModeImage" onClick={startKidsMode} 
+                                <img className="kids-mode-image" onClick={startKidsMode} 
                                     src={kidMode}/> 
 
                             }
