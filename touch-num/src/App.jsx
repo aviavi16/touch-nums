@@ -209,7 +209,8 @@ export function App() {
         titleEl.classList.add('hide')
         const hintEl = document.querySelector('.hint-container')
         hintEl.classList.add('kids')
-        gDifficulty = 'Easy'
+        if (document.querySelector('.difficulty-container'))
+            document.querySelector('.difficulty-container').value = 'Easy';
         startGame()
         const tableEl = document.querySelector('.table')
         tableEl.classList.add('big')
