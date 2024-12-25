@@ -19,7 +19,7 @@
     "button"
     ".";
     align-content: center;
-    background-image: url("./touch-nums/src/imgs/sub-menu-bg.webp");
+    background-image: url("https://aviavi16.github.io/touch-nums/src/imgs/sub-menu-bg.webp");
     background-size: cover;
     background-repeat: no-repeat;
     height: 65%;
@@ -74,9 +74,6 @@
         font-size: 50px !important;
         padding: 10px;
 
-    }
-
-    .pause-sub-menu-container{
     }
   }
 
