@@ -196,6 +196,12 @@ export function App() {
             const tableEl = document.querySelector('.table')
             tableEl.classList.add('big')
         }
+        const hintEl = document.querySelector('.hint-container')
+        if(hintEl) hintEl.style.display = 'none';
+        
+        const timerEl = document.querySelector('.stop-watch')
+        if(timerEl) timerEl.style.display = 'none';
+        
     }
 
     const handleTest = () => {
