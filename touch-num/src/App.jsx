@@ -70,7 +70,12 @@ export function App() {
         div.appendChild (table);
         handleStart();
         onCloseModal();
-    
+        const displayPanelEl = document.querySelector('.display-panel-container')
+        if(displayPanelEl) displayPanelEl.style.display = 'grid';
+        const hintEl = document.querySelector('.hint-container')
+        if(hintEl) hintEl.style.display = 'flex';
+        const timerEl = document.querySelector('.stop-watch')
+        if(timerEl) timerEl.style.display = 'flex';     
     }
     
     function shuffleArray(array) {
@@ -202,16 +207,13 @@ export function App() {
     function startKidsMode() {
         setKidsMode(true)
         const buttonsEl = document.querySelector('.buttons-container')
-        buttonsEl.classList.add('hide')
-        const timerEl = document.querySelector('.stop-watch')
-        timerEl.classList.add('hide')
-        const titleEl = document.querySelector('.sub-title')
-        titleEl.classList.add('hide')
+        if(buttonsEl) buttonsEl.classList.add('hide')
         const hintEl = document.querySelector('.hint-container')
         hintEl.classList.add('kids')
-        if (document.querySelector('.difficulty-container'))
-            document.querySelector('.difficulty-container').value = 'Easy';
+        if (document.querySelector('.difficulty-container')) document.querySelector('.difficulty-container').value = 'Easy';
         startGame()
+        const timerEl = document.querySelector('.stop-watch')
+        if(timerEl) timerEl.style.display = 'none';
         const tableEl = document.querySelector('.table')
         tableEl.classList.add('big')
     }
@@ -219,13 +221,17 @@ export function App() {
     function endKidsMode() {
         setKidsMode(false)
         const buttonsEl = document.querySelector('.buttons-container.hide')
-        buttonsEl.className = 'buttons-container';
-        const timerEl = document.querySelector('.stop-watch.hide')
-        timerEl.className = 'stop-watch';
-        const titleEl = document.querySelector('.sub-title.hide')
-        titleEl.className = 'sub-title';
+        if(buttonsEl) buttonsEl.className = 'buttons-container';
         const hintEl = document.querySelector('.hint-container.kids')
-        hintEl.className = 'hint-container';
+        if(hintEl){
+            hintEl.className = 'hint-container';
+            hintEl.style.display = 'none';
+        } 
+        const timerEl = document.querySelector('.stop-watch.hide')
+        if(timerEl){
+            timerEl.className = 'stop-watch';
+            timerEl.style.display = 'none';
+        } 
         deleteOlderGame();
         setNextNum(0)
         setGameStarted(false);
@@ -243,7 +249,10 @@ export function App() {
                         <div className="title-container">
                             <span className="title"> A game of learning and fun! </span>
                         </div>
-                        
+                        {!kidsMode && ( 
+                                    <img className="kids-mode-image" onClick={startKidsMode} 
+                                    src={kidMode}/> )
+                        }
                         <div className="links" onClick={openInstructions}>
                             Instructions 
                         </div>
@@ -259,25 +268,18 @@ export function App() {
                     <div className="display-panel-container">
                         <div className="stop-watch-container">
                             <Hint className="hint-container" nextNum={nextNum}/>
-                            {kidsMode ? 
+                            {kidsMode && ( 
                                 <img className="adult-mode-image" onClick={endKidsMode} 
-                                    src={adultMode}/>
-                                    : 
-                                <img className="kids-mode-image" onClick={startKidsMode} 
-                                    src={kidMode}/> 
-
+                                    src={adultMode}/>)
                             }
-                            <StopWatch time={timer}/>                 
+                            <StopWatch time={timer}/>               
+                            
                         </div>
                         
                     </div>
 
 
                     <section className="table-container">
-                        <h1 className="sub-title"> Touch The Numbers: By Order ! </h1>
-
-                        
-
                         <dialog className="modal">
                             <h3> Please Select Difficulty: </h3>
                             <select  
