@@ -23,10 +23,9 @@ export function InstructionsMenu({onCloseInstructions } ){
                             <p className="how-to-play-description-ps">
                                 p.s
                                 <br/>
-                                for kid's mode, click the icon on top.
-                            </p>
-                            <p className="how-to-play-description-ps"> 
-                                to go back, click the adult mode icon.
+                                For kid's mode, click the icon on top.
+                                <br/>
+                                To go back, click the adult mode icon.
                             </p>
                             <div className="instructions-images">
                                 <img className="instructions-image" src={kidMode}/>
