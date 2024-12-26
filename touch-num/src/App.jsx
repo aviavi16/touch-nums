@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Victory } from "./cmps/Victory";
 import { Buttons } from "./cmps/Buttons";
 import { Hint } from "./cmps/Hint";
@@ -6,6 +6,7 @@ import { StopWatch } from "./cmps/StopWatch";
 import { PauseMenu } from "./cmps/PauseMenu";
 import adultMode from "./imgs/adultMode.jfif"
 import kidMode from "./imgs/kidsMode.png"
+import { InstructionsMenu } from "./cmps/InstructionsMenu";
 
 export function App() {
     const [ kidsMode, setKidsMode ] = useState( false )
@@ -15,6 +16,9 @@ export function App() {
     let  _currentNumber = useRef(0)
     let  timeInterval = useRef(null)
 
+    useEffect(()=>{
+        openInstructions()
+    }, [])
     var gDifficulty = 'Easy'
     var gSize = 16;
 
@@ -92,8 +96,6 @@ export function App() {
     
     }
 
-
-
     function choose(cell){
         console.log('cell.innerText:', cell.innerText + " " + _currentNumber.current)
         if (parseInt(cell.innerText) === _currentNumber.current)
@@ -128,7 +130,12 @@ export function App() {
     }
 
     function openInstructions(){
+        const elName = document.querySelector('.instructions-modal')
+        elName.showModal() 
+    }
 
+    function onCloseInstructions(){
+        document.querySelector('.instructions-modal').close()
     }
 
     function openPause(){
@@ -284,7 +291,6 @@ export function App() {
                         
                     </div>
 
-
                     <section className="table-container">
                         <dialog className="modal">
                             <h3> Please Select Difficulty: </h3>
@@ -309,8 +315,9 @@ export function App() {
                             <PauseMenu onClosePause={onClosePause}/>
                         </dialog>
 
-                        
-
+                        <dialog className="instructions-modal">    
+                            <InstructionsMenu onCloseInstructions={onCloseInstructions}/>
+                        </dialog>
 
                         <div className="myDynamicTable"></div>
                         <div className="user-msg"></div>

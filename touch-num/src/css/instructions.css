@@ -1,0 +1,132 @@
+.instructions-menu-container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.instructions-sub-menu-container{
+    display: grid;
+    grid-template-rows: 2fr 0.1fr;
+    grid-template-areas: 
+    "title"
+    "button";
+    align-content: center;
+}
+
+.how-to-play-description{
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+.how-to-play-description-ps{
+    font-size: 10px;
+}
+
+.instructions-images{
+    display: flex;
+    justify-content: center;
+}
+
+.instructions-image{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.instructions-menu-title{
+    grid-area: title;
+}
+
+.instructions-modal{
+    width: 30%;
+}
+
+.title-wrap{
+    font-size: 30px;
+    font-weight: bold;
+    display: grid;
+}
+
+.resume-instructions-button{
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    width: fit-content;
+    justify-self: center;
+    grid-area: button;
+    border-radius: 50%;
+    filter: opacity(0.4) drop-shadow(0 0 0 green);
+}
+
+.instructions-gif{
+    justify-self: center;
+    width: 150px;
+    height: 150px;
+}
+
+
+@media screen and (min-width : 640px) {
+    .how-to-play-description{
+        font-size: 15px;
+    }
+    
+    .instructions-images{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .instructions-image{
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+    
+    .instructions-menu-title{
+        grid-area: title;
+    }
+
+    .instructions-modal{
+        width: fit-content;
+    }
+
+    .instructions-sub-menu-container{
+        grid-template-rows: 2fr 0.2fr;
+    }
+
+    .how-to-play-description-ps{
+        font-size: 13px;
+    }
+}
+
+
+@media screen and (min-width : 922px) {
+    .how-to-play-description{
+        font-size: 20px;
+    }
+    
+    .how-to-play-description-ps{
+        font-size: 15px;
+    }
+    
+    .instructions-images{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .instructions-image{
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+    
+    .instructions-menu-title{
+        grid-area: title;
+    }
+
+    .resume-instructions-button{
+        height: 80px;
+        align-self: flex-end;
+        margin-left: 20px;
+        padding: 5px;
+    }
+}
