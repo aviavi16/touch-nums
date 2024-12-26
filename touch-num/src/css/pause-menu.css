@@ -22,15 +22,8 @@
     background-image: url("../imgs/sub-menu-bg.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 65%;
-    width: 500px;
-}
-
-.title-wrap{
-    font-weight: 300;
-    padding: 10px;
-    font-size: 30px;
-    justify-self: center;
+    height: 40%;
+    width: 200px;
 }
 
 .container {
@@ -54,33 +47,78 @@
   }
 
   .resume-button{
-    height: 70px !important;
+    height: 50px;
     aspect-ratio: 1 / 1;
     width: fit-content;
     justify-self: center;
     grid-area: button;
     border-radius: 50%;
     filter: opacity(0.4) drop-shadow(0 0 0 green);
-  }
-
-  @media screen and (min-width : 922px) {
-    .resume-button{
-        height: 50px;
-        align-self: flex-end;
-    }
-
-    .title-wrap{
-        font-weight: 300;
-        font-size: 50px !important;
-        padding: 10px;
-
-    }
+    margin-left: 50px;
   }
 
   .pause-menu-title{
     width: 75%;
-    justify-self: center;
+    justify-self: right;
     grid-area: title;
     min-width: 60px;
+  }
+
+
+  .title-wrap{
+    font-weight: 300;
+    padding: 10px;
+    font-size: 18px;
+    justify-self: center;
+  }
+
+  @media screen and (min-width : 450px) {
+    .pause-sub-menu-container{
+      height: 50%;
+      width: 320px;
+    }
+
+    .pause-menu-title{
+      width: 85%;
+    }
+
+    .resume-button{
+      height: 70px;
+    }
+  }
+
+  @media screen and (min-width : 640px) {
+    .pause-sub-menu-container{
+      height: 60%;
+      width: 400px;
+    }
+
+    .title-wrap{
+      font-size: 30px;
+    }
+  }
+
+  @media screen and (min-width : 922px) {
+    .resume-button{
+        height: 100px;
+        align-self: flex-end;
+        margin-left: 20px;
+    }
+
+    .title-wrap{
+        font-weight: 300;
+        font-size: 50px;
+        padding: 10px;
+
+    }
+
+    .pause-menu-title{
+      justify-self: center;
+    }
+
+    .pause-sub-menu-container{
+      height: 65%;
+      width: 500px;
+    }
   }
 

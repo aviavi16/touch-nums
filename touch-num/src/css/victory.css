@@ -226,16 +226,6 @@ html {
   }
 }
 
-@media only screen and (max-width: 900px) {
-  .imposter, .victory, .name {
-    zoom: 60%;
-  }
-  .background {
-    zoom: .7;
-    margin-top: 10px;
-  }
-}
-
 .btn{
   font-family: 'Press Start 2P', cursive;
   font-size: 4rem;
@@ -245,4 +235,14 @@ html {
   bottom: 40px;
   border: solid white;
   border-radius: 15px;
+}
+
+@media only screen and (max-width: 900px) {
+  .imposter, .victory, .name {
+    zoom: 60%;
+  }
+  .background {
+    zoom: .7;
+    margin-top: 10px;
+  }
 }
