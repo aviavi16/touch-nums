@@ -88,8 +88,16 @@
   }
 
   @media screen and (min-width : 640px) {
+    .pause-menu-container{
+      display: grid;
+    }
+
+    .pause-menu-title{
+      justify-self: center;
+    }
+
     .pause-sub-menu-container{
-      height: 60%;
+      height: 80%;
       width: 400px;
     }
 
@@ -112,19 +120,19 @@
 
     }
 
-    .pause-menu-title{
-      justify-self: center;
+    .pause-sub-menu-container{
+      height: 85%;
+      width: 500px;
     }
 
-    .pause-sub-menu-container{
-      height: 65%;
-      width: 500px;
+    .pause-menu-title{
+      justify-self: right; 
     }
   }
 
   @media screen and (min-width : 1050px) {
-    .pause-menu-container{
-      display: grid;
+    .pause-menu-title{
+      justify-self: center;
     }
 
     .pause-sub-menu-container{
@@ -138,6 +146,7 @@
 
     .inner{
       justify-self: center;
+      width: 700px;
     }
   }
 
