@@ -122,3 +122,22 @@
     }
   }
 
+  @media screen and (min-width : 1050px) {
+    .pause-menu-container{
+      display: grid;
+    }
+
+    .pause-sub-menu-container{
+      height: 85%;
+      width: 600px;
+    }
+
+    .pause-menu-title{
+      width: 75%;
+    }
+
+    .inner{
+      justify-self: center;
+    }
+  }
+
