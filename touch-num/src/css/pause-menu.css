@@ -8,7 +8,7 @@
 
 .pause-sub-menu-container{
     position: relative;
-    top: 90%;
+    top: 70%;
     transform: translate(0, -100%);
     display: grid;
     grid-template-rows: 1fr 0.2fr 1.6fr 0.2fr 1.5fr;
@@ -99,6 +99,7 @@
     .pause-sub-menu-container{
       height: 80%;
       width: 400px;
+      top: 90%;
     }
 
     .title-wrap{
