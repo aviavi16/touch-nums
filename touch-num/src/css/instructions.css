@@ -39,7 +39,7 @@
 }
 
 .instructions-modal{
-    width: 30%;
+    width: fit-content;
 }
 
 .title-wrap{
