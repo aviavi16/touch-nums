@@ -5,9 +5,9 @@ export function PauseMenu({onClosePause } ){
             <div className="inner">
                 <div className="pause-sub-menu-container">
                     <div className="pause-menu-title">
-                        <div className="title-wrap">
-                        Pause Menu
-                        </div>
+                    <button className="options-button">
+                        OPTIONS
+                    </button>
                     </div>
                     <img  onClick={onClosePause} src={resumeBtn} height="2848" width="4288" className="resume-button" />
                     {/* <button name="continue" onClick={onClosePause} className="resume-button"> Continue </button>  */}

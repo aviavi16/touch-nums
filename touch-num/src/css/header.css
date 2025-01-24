@@ -1,16 +1,32 @@
-.buttons-watch-container{
+.header-bg-container{
+    background-image: linear-gradient(aquamarine, #80acff);
+    height: 100%;
+    grid-area: header;
+}
+
+.header-sub-container{
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 0.6em;
-    grid-area: buttons;
+    justify-content: right;
+    font-size: 14px;
+    margin-inline: 10px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.buttons-container.hide{
-    display: none;
+.links{
+    cursor: pointer;
+    margin-inline: 10px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
+.header-container{
+    grid-area: header;
+}
 
-.new-game-btn{
+.instructions-btn{
     max-height: 40px;
     cursor: pointer;
     appearance: button;
@@ -40,11 +56,11 @@
     -webkit-user-select: none;
     vertical-align: middle;
     white-space: nowrap;
-    width: 80px;
+    width: 120px;
 
 }
 
-.new-game-btn:after {
+.instructions-btn:after {
     background-clip: padding-box;
     background-color: #a2fbca;
     border: solid transparent;
@@ -59,39 +75,32 @@
     z-index: -1;
 }
 
-.new-game-btn:main,
-.new-game-btn:focus {
+.instructions-btn:main,
+.instructions-btn:focus {
     user-select: auto;
 }
 
-.new-game-btn:hover:not(:disabled) {
+.instructions-btn:hover:not(:disabled) {
     filter: brightness(1.1);
     -webkit-filter: brightness(1.1);
 }
 
-.new-game-btn:disabled {
+.instructions-btn:disabled {
     cursor: auto;
 }
 
-.new-game-btn:active {
+.instructions-btn:active {
     border-width: 4px 0 0;
     background: none;
 }
 
-.buttons-container{
-    display: flex;
-    justify-content: space-around; 
-    padding-top: 10px; 
-}
-
 @media screen and (min-width : 922px) {
-    .buttons-container{
-        flex-direction: row;
-        padding: 35px;        
+    .header-container{
+        font-size: 16px;
     }
 
-    .new-game-btn{
-        width: 200px;     
+    .instructions-btn{
+        width: 280px;     
         font-size: 25px;
         line-height: 20px;
     } 

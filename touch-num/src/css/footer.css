@@ -1,0 +1,10 @@
+.title-container{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+.title{
+    margin-inline: 10px;
+}

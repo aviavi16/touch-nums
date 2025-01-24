@@ -72,6 +72,52 @@
     justify-self: center;
   }
 
+  .options-button {
+    background-color: #b97a57; /* Wooden background color */
+    color: #fff; /* Text color */
+    font-size: 1.2rem; /* Adjust font size */
+    font-weight: bold;
+    font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+    padding: 10px 30px;
+    border: none; /* Remove border */
+    border-radius: 10px; /* Rounded edges */
+    position: relative; /* Needed for pseudo-elements */
+    text-shadow: 1px 1px 2px #7c4d33; /* Slight shadow for depth */
+    cursor: pointer;
+    box-shadow: 0 4px #7c4d33; /* Shadow to give a 3D effect */
+  }
+  
+  .options-button:before,
+  .options-button:after {
+    content: "";
+    position: absolute;
+    height: 50%; /* Match the height of the button */
+    width: 15px; /* Width of the slanted edges */
+    background-color: #7c4d33; /* Darker brown for edges */
+    top: 25%; /* Vertically center the edges */
+    transform: skewX(-20deg);
+  }
+  
+  .options-button:before {
+    left: -15px; /* Position the left edge */
+  }
+  
+  .options-button:after {
+    right: -15px; /* Position the right edge */
+    transform: skewX(20deg); /* Opposite skew for right edge */
+  }
+  
+  .options-button:hover {
+    background-color: #c28b69; /* Lighter wood on hover */
+    box-shadow: 0 6px #7c4d33; /* Hover shadow effect */
+    transform: translateY(-2px);
+  }
+  
+  .options-button:active {
+    box-shadow: 0 2px #7c4d33;
+    transform: translateY(2px);
+  }  
+
   @media screen and (min-width : 450px) {
     .pause-sub-menu-container{
       height: 50%;

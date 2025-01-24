@@ -5,8 +5,13 @@
 
  .app{
     height: 100%;
-    flex-direction: column;
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "body"
+    "footer";
+    grid-template-rows: 50px 1fr 30px;
+
  }
  
  .app-bg-container{
@@ -31,30 +36,15 @@
     grid-area: main-display;
 }
 
-.header-container{
-    height: 40px;
-}
-
-.header-bg-container{
-    background-image: linear-gradient(aquamarine, #80acff);
-    height: 100%;
-}
-
-.header-sub-container{
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    margin-inline: 10px;
-}
-
 .td{
-    background-color: #bbb2b2;
+    background-color: #faecd1;
     text-align:center;
     padding: 7px;
     border-collapse: separate;
-    border-radius: 8px;
-    border-spacing: 0;
+    border-radius: 20px;
+    border-spacing: 5px;
+    width: 44px;
+    height: 44px;
 }
 
 body{
@@ -80,9 +70,20 @@ body{
 
 
 .table{
+    position: absolute;
+    right: 50%;
+    top: 270px;
+    transform: translateX(50%);
     font-size: 22px;
-    background-color: lightgreen;
-    font: bold;
+    /* background-color: #c28b69; */
+    /* background-image:   url("../imgs/map.png"); */
+    font-weight: 600;
+    /* border: solid 8px #c28b69; */
+    border-radius: 20px;
+    font-family: "Comic Sans MS", "Chalkboard SE", sans-serif; /* Optional for a playful font */
+    /* box-shadow: 0 18px #7c4d33; Shadow for 3D effect */
+    border-spacing: 10px; /* Adds space between the cells */
+    z-index: 999;
 }
 
 .table.big{
@@ -91,16 +92,6 @@ body{
 
 .td.choose{
     background-color:  rgb(248, 184, 65);
-}
-
-
-.links{
-    cursor: pointer;
-    margin-inline: 10px;
-}
-
-.title{
-    margin-inline: 10px;
 }
 
 .difficulty-selector{
@@ -146,9 +137,22 @@ body{
     margin-right: 15px;
 }
 
+.mapBg{
+    width: 500px;
+    position: absolute;
+    right: 50%;
+    top: 182px;
+    transform: translateX(50%);
+
+}
+
 @media screen and (min-width : 922px) {
+    .table{
+        font-size: 30px;
+    }
+
     .table-container{
-        font-size: 16px;   
+        font-size: 30px;   
     }
 
     .header-container{
@@ -165,6 +169,8 @@ body{
 
     .td{
         padding: 15px;
+        width: 44px;
+        height: 44px;
     }
 
     .kids-mode-image{
@@ -184,3 +190,32 @@ body{
         height: 150px;
     }
 }
+
+.blinking-element {
+    font-size: 24px;
+    padding: 20px;
+    color: white;
+    background-color: #d17070;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    width: 150px;
+    margin: 20px auto;
+    display: block;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Keyframes for blink animation */
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0; /* Element fades out in the middle */
+    }
+  }
+  
+  .blink {
+    animation: blink 1s linear 3; /* Blink every second */
+  }
+  
