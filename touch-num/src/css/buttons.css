@@ -1,8 +1,8 @@
 .buttons-watch-container{
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
-    grid-area: buttons;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .buttons-container.hide{

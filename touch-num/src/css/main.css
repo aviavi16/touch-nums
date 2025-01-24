@@ -21,13 +21,13 @@
     height: 100%;
  }
 
-.app-container{
+/* .app-container{
     display: grid;
     height: 100%;
     grid-template-areas: 'buttons' 'display-panel' 'main-display';
     margin-inline: 5px;
     grid-template-rows: 0.2fr 0.2fr 2.7fr;
-}
+} */
 
 .table-container{
     width : 100%; 
@@ -113,9 +113,8 @@ body{
 }
 
 .display-panel-container{
-    grid-area: display-panel;
-    display: none;
-    grid-template-rows: auto;
+    display: flex;
+    justify-content: space-between;    
 }
 
 .adult-mode-image{
@@ -123,6 +122,11 @@ body{
     cursor: pointer;
     width: 75px;
     height: 75px;
+}
+
+.kids-icon-container{
+    display: flex;
+    justify-content: center;
 }
 
 .kids-mode-image{
@@ -171,10 +175,6 @@ body{
         padding: 15px;
         width: 44px;
         height: 44px;
-    }
-
-    .kids-mode-image{
-        margin-right: 130px;
     }
 
     .app-container{

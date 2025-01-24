@@ -8,7 +8,8 @@
 
 .pause-sub-menu-container{
     position: relative;
-    top: 70%;
+    top: 85%;
+    right: 30px;
     transform: translate(0, -100%);
     display: grid;
     grid-template-rows: 1fr 0.2fr 1.6fr 0.2fr 1.5fr;
@@ -22,8 +23,8 @@
     background-image: url("../imgs/sub-menu-bg.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 40%;
-    width: 200px;
+    height: 60%;
+    width: 270px;
 }
 
 .container {
@@ -58,7 +59,7 @@
   }
 
   .pause-menu-title{
-    width: 75%;
+    width: 65%;
     justify-self: right;
     grid-area: title;
     min-width: 60px;
@@ -73,63 +74,40 @@
   }
 
   .options-button {
-    background-color: #b97a57; /* Wooden background color */
+    background-color:  hsl(31.94deg 96.88% 74.9%);/* #c28b69; /* Wooden background color */
     color: #fff; /* Text color */
-    font-size: 1.2rem; /* Adjust font size */
-    font-weight: bold;
+    font-size: 16px; /* Adjust font size */
+    font-weight: 700;
     font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
     padding: 10px 30px;
     border: none; /* Remove border */
     border-radius: 10px; /* Rounded edges */
     position: relative; /* Needed for pseudo-elements */
-    text-shadow: 1px 1px 2px #7c4d33; /* Slight shadow for depth */
-    cursor: pointer;
-    box-shadow: 0 4px #7c4d33; /* Shadow to give a 3D effect */
+    text-shadow: 5px 5px 5px #7c4d33; /* Slight shadow for depth */
+    box-shadow: 0 12px #7c4d33; /* Shadow to give a 3D effect */
+    -webkit-text-stroke: 0.5px black; /* width and color */
   }
-  
-  .options-button:before,
-  .options-button:after {
-    content: "";
-    position: absolute;
-    height: 50%; /* Match the height of the button */
-    width: 15px; /* Width of the slanted edges */
-    background-color: #7c4d33; /* Darker brown for edges */
-    top: 25%; /* Vertically center the edges */
-    transform: skewX(-20deg);
-  }
-  
-  .options-button:before {
-    left: -15px; /* Position the left edge */
-  }
-  
-  .options-button:after {
-    right: -15px; /* Position the right edge */
-    transform: skewX(20deg); /* Opposite skew for right edge */
-  }
-  
-  .options-button:hover {
-    background-color: #c28b69; /* Lighter wood on hover */
-    box-shadow: 0 6px #7c4d33; /* Hover shadow effect */
-    transform: translateY(-2px);
-  }
-  
-  .options-button:active {
-    box-shadow: 0 2px #7c4d33;
-    transform: translateY(2px);
-  }  
 
   @media screen and (min-width : 450px) {
     .pause-sub-menu-container{
+      width: 380px;
+      right: 0px;
       height: 50%;
-      width: 320px;
+      top: 75%;
     }
 
     .pause-menu-title{
-      width: 85%;
+      justify-self: center;
+      width: 145px;
     }
 
     .resume-button{
       height: 70px;
+    }
+
+    .options-button {
+      font-size: 20px; /* Adjust font size */
+      font-weight: 700;
     }
   }
 
@@ -139,17 +117,24 @@
     }
 
     .pause-menu-title{
-      justify-self: center;
+      justify-items: center;
+      width: 200px;
     }
 
     .pause-sub-menu-container{
-      height: 80%;
-      width: 400px;
-      top: 90%;
+      height: 100%;
+      width: 460px;
+      top: 110%; 
     }
 
     .title-wrap{
       font-size: 30px;
+    }
+
+    .options-button {
+      font-size: 30px; /* Adjust font size */
+      font-weight: 700;
+      -webkit-text-stroke: 2px black; /* width and color */
     }
   }
 
@@ -158,6 +143,11 @@
         height: 100px;
         align-self: flex-end;
         margin-left: 20px;
+    }
+    
+    .options-button {
+      font-size: 42px; /* Adjust font size */
+      font-weight: 700;
     }
 
     .title-wrap{
@@ -170,25 +160,22 @@
     .pause-sub-menu-container{
       height: 85%;
       width: 500px;
+      top: 85%;
     }
 
     .pause-menu-title{
-      justify-self: right; 
+      justify-items: center; 
     }
   }
 
   @media screen and (min-width : 1050px) {
-    .pause-menu-title{
-      justify-self: center;
-    }
-
     .pause-sub-menu-container{
       height: 85%;
       width: 600px;
     }
 
     .pause-menu-title{
-      width: 75%;
+      width: 45%;
     }
 
     .inner{

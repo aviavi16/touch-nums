@@ -11,6 +11,8 @@ import mapBg from "../imgs/map.png"
 
 export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructions}){
     const [ gameStarted, setGameStarted ] = useState( false )
+    const [ isWin, setIsWin ] = useState( false )
+
     const [ nextNum , setNextNum ] = useState( 0 )
     const [ timer, setTimer ] = useState( 0 )
     let  _currentNumber = useRef(0)
@@ -58,6 +60,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     function win(){
         clearInterval(timeInterval.current);
         setNextNum(0)
+        setIsWin(true)
         const buttonsEl = document.querySelector('.buttons-container')
         buttonsEl.classList.add('hide')
         const el = document.querySelector('.victory-container')
@@ -128,12 +131,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         div.appendChild (table);
         handleStart();
         onCloseModal();
-        const displayPanelEl = document.querySelector('.display-panel-container')
-        if(displayPanelEl) displayPanelEl.style.display = 'grid';
-        const hintEl = document.querySelector('.hint-container')
-        if(hintEl) hintEl.style.display = 'flex';
-        const timerEl = document.querySelector('.stop-watch')
-        if(timerEl) timerEl.style.display = 'flex';     
     }
 
     const handleStart = () => {
@@ -249,23 +246,29 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
             <div className="app-container">
                 <div className="buttons-watch-container">
                 {!kidsMode && ( 
-                    <img className="kids-mode-image" onClick={KidsModeOn} 
-                    src={kidMode}/> )
+                    <div className="kids-icon-container">
+                        <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
+                    </div>)
                 }
-                    <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} gameStarted={gameStarted}/>
-                </div>
                 <div className="display-panel-container">
+                    {gameStarted &&  (<Hint className="hint-container" nextNum={nextNum}/>)}
+                    <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} gameStarted={gameStarted}/>
+                    {gameStarted &&  (<StopWatch time={timer}/>)}
+                </div>
+                    
+                </div>
+                {/* <div className="display-panel-container">
                     <div className="stop-watch-container">
-                        <Hint className="hint-container" nextNum={nextNum}/>
+                        
                         {kidsMode && ( 
                             <img className="adult-mode-image" onClick={KidsModeOff} 
                                 src={adultMode}/>)
                         }
-                        <StopWatch time={timer}/>               
+                                   
                         
                     </div>
                     
-                </div>
+                </div> */}
 
                 <section className="table-container">
                     <dialog className="modal">
@@ -295,8 +298,8 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                         <InstructionsMenu onCloseInstructions={onCloseInstructions}/>
                     </dialog>
 
-                    <img src={mapBg} className="mapBg"></img>
-                    <div className="myDynamicTable"></div>
+                    { !isWin ? <img src={mapBg} className="mapBg"></img> : ''}
+                    { !isWin ? <div className="myDynamicTable"></div> : ''}
                     <div className="user-msg"></div>
                 </section>
 
