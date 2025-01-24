@@ -12,18 +12,18 @@
     right: 30px;
     transform: translate(0, -100%);
     display: grid;
-    grid-template-rows: 1fr 0.2fr 1.6fr 0.2fr 1.5fr;
+    grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 1.5fr;
     grid-template-areas: 
     "."
     "title"
-    "."
-    "button"
-    ".";
+    "music"
+    "effects"
+    "button";
     align-content: center;
     background-image: url("../imgs/sub-menu-bg.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 60%;
+    height: 400px;
     width: 270px;
 }
 
@@ -47,24 +47,12 @@
     width: auto;
   }
 
-  .resume-button{
-    height: 50px;
-    aspect-ratio: 1 / 1;
-    width: fit-content;
-    justify-self: center;
-    grid-area: button;
-    border-radius: 50%;
-    filter: opacity(0.4) drop-shadow(0 0 0 green);
-    margin-left: 50px;
-  }
-
   .pause-menu-title{
     width: 65%;
     justify-self: right;
     grid-area: title;
     min-width: 60px;
   }
-
 
   .title-wrap{
     font-weight: 300;
@@ -85,14 +73,61 @@
     position: relative; /* Needed for pseudo-elements */
     text-shadow: 5px 5px 5px #7c4d33; /* Slight shadow for depth */
     box-shadow: 0 12px #7c4d33; /* Shadow to give a 3D effect */
-    -webkit-text-stroke: 0.5px black; /* width and color */
+    -webkit-text-stroke: 0.7px black; /* width and color */
+  }
+
+  .pause-menu-music{
+    grid-area: music;
+    display: flex;
+    justify-content: center
+  }
+  .checkbox {
+    width: 50px;
+    height: 50px;
+    background-color: #f4d7b5; /* Light brown color */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid #c48f5a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .checkbox.checked {
+    background-color: #e1b87f; /* Slightly darker brown when checked */
+  }
+  
+  .checkmark {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pause-menu-effects{
+    grid-area: effects;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+  }
+
+  .resume-button{
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    width: fit-content;
+    justify-self: center;
+    grid-area: button;
+    border-radius: 50%;
+    filter: opacity(0.4) drop-shadow(0 0 0 green);
+    margin-left: 50px;
   }
 
   @media screen and (min-width : 450px) {
     .pause-sub-menu-container{
-      width: 380px;
+      width: 400px;
       right: 0px;
-      height: 50%;
+      height: 350px;
       top: 75%;
     }
 
@@ -122,7 +157,7 @@
     }
 
     .pause-sub-menu-container{
-      height: 100%;
+      height: 400px;
       width: 460px;
       top: 110%; 
     }
@@ -158,9 +193,9 @@
     }
 
     .pause-sub-menu-container{
-      height: 85%;
+      height:  600px;
       width: 500px;
-      top: 85%;
+      top: 95%;
     }
 
     .pause-menu-title{
@@ -170,8 +205,8 @@
 
   @media screen and (min-width : 1050px) {
     .pause-sub-menu-container{
-      height: 85%;
-      width: 600px;
+      height:  600px;
+      width: 700px;
     }
 
     .pause-menu-title{
