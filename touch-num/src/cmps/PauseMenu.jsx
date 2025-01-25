@@ -1,6 +1,6 @@
 import resumeBtn from "../imgs/resume-btn.webp"
 import { CustomCheckbox } from "./CustomCheckbox"
-export function PauseMenu({onClosePause } ){
+export function PauseMenu({onClosePause, restart } ){
     return (
         <section className="pause-menu-container">
             <div className="inner">
@@ -17,6 +17,9 @@ export function PauseMenu({onClosePause } ){
                     <div className="pause-menu-effects">
                         <span> Effects </span>
                         <CustomCheckbox />
+                    </div>
+                    <div className="pause-menu-restart">
+                        <button name="start" type="button" onClick={restart} className="new-game-btn" >  Restart </button>
                     </div>
                     <img  onClick={onClosePause} src={resumeBtn} height="2848" width="4288" className="resume-button" />
                     {/* <button name="continue" onClick={onClosePause} className="resume-button"> Continue </button>  */}

@@ -12,12 +12,13 @@
     right: 30px;
     transform: translate(0, -100%);
     display: grid;
-    grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 1.5fr;
+    grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr 1.5fr;
     grid-template-areas: 
     "."
     "title"
     "music"
     "effects"
+    "restart"
     "button";
     align-content: center;
     background-image: url("../imgs/sub-menu-bg.webp");
@@ -112,6 +113,14 @@
 
   }
 
+  .pause-menu-restart{
+    grid-area: restart;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+  }
+
   .resume-button{
     height: 50px;
     aspect-ratio: 1 / 1;
@@ -176,7 +185,6 @@
   @media screen and (min-width : 922px) {
     .resume-button{
         height: 100px;
-        align-self: flex-end;
         margin-left: 20px;
     }
     

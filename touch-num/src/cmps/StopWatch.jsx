@@ -1,9 +1,11 @@
 import Timer from "./Timer";
 
-export function StopWatch({ time }) {
+export function StopWatch({ time, kidsMode }) {
     return (
-		<div className="stop-watch">
-			<Timer time={time} />
-		</div>
+		<>
+			{ !kidsMode && (<div className="stop-watch">
+				<Timer time={time} />
+			</div>)}
+		</>
 	);
 }

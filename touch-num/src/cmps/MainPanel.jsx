@@ -17,6 +17,13 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     const [ timer, setTimer ] = useState( 0 )
     let  _currentNumber = useRef(0)
     let  timeInterval = useRef(null)
+    const [ tableSize, setTableSize] = useState(16)
+
+
+    useEffect(() => {
+        // Set the CSS variable
+        document.documentElement.style.setProperty("--my-size", Math.sqrt(tableSize) );
+    }, [tableSize]);
 
     useEffect(()=>{
         openInstructions()
@@ -61,8 +68,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         clearInterval(timeInterval.current);
         setNextNum(0)
         setIsWin(true)
-        const buttonsEl = document.querySelector('.buttons-container')
-        buttonsEl.classList.add('hide')
         const el = document.querySelector('.victory-container')
         el.classList.add('show')
     }
@@ -93,13 +98,16 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         switch (gDifficulty){
             case 'Medium':
                 gSize = 25;
+                setTableSize(25)
                 break;
             case 'Hard':
                 gSize = 36;
+                setTableSize(36)
                 break;
             case 'Easy': 
             default:
                 gSize = 16;
+                setTableSize(16)
                 break;
         }
         console.log('gDifficulty:', gSize)
@@ -140,6 +148,17 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         }, 10);
     }
 
+    function restartGame(){
+        //promt?
+        deleteOlderGame();
+        setNextNum(0)
+        setGameStarted(false);
+        clearInterval(timeInterval.current);
+        setTimer(0);
+        _currentNumber.current = 0;
+        onClosePause()
+        openNew()
+    }
     
     function onCloseInstructions(){
         document.querySelector('.instructions-modal').close()
@@ -161,10 +180,8 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
 
     const handleReset = () => {
         const el = document.querySelector('.victory-container.show')
-        const buttonsEl = document.querySelector('.buttons-container.hide')
         if(el){
             el.className = 'victory-container';
-            buttonsEl.className = 'buttons-container';
         }
            
         deleteOlderGame();
@@ -175,19 +192,11 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         _currentNumber.current = 0;
 
         if(kidsMode){
-            const buttonsEl = document.querySelector('.buttons-container')
-            buttonsEl.classList.add('hide')
             gDifficulty = 'Easy'
             startGame()
             const tableEl = document.querySelector('.table')
             tableEl.classList.add('big')
-        }
-        const hintEl = document.querySelector('.hint-container')
-        if(hintEl) hintEl.style.display = 'none';
-        
-        const timerEl = document.querySelector('.stop-watch')
-        if(timerEl) timerEl.style.display = 'none';
-        
+        }       
     }
 
     const handleTest = () => {
@@ -198,18 +207,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
 
     function KidsModeOff() {
         endKidsMode()
-        const buttonsEl = document.querySelector('.buttons-container.hide')
-        if(buttonsEl) buttonsEl.className = 'buttons-container';
-        const hintEl = document.querySelector('.hint-container.kids')
-        if(hintEl){
-            hintEl.className = 'hint-container';
-            hintEl.style.display = 'none';
-        } 
-        const timerEl = document.querySelector('.stop-watch.hide')
-        if(timerEl){
-            timerEl.className = 'stop-watch';
-            timerEl.style.display = 'none';
-        } 
         deleteOlderGame();
         setNextNum(0)
         setGameStarted(false);
@@ -220,14 +217,8 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
 
     function KidsModeOn() {
         startKidsMode()
-        const buttonsEl = document.querySelector('.buttons-container')
-        if(buttonsEl) buttonsEl.classList.add('hide')
-        const hintEl = document.querySelector('.hint-container')
-        hintEl.classList.add('kids')
         if (document.querySelector('.difficulty-container')) document.querySelector('.difficulty-container').value = 'Easy';
         startGame()
-        const timerEl = document.querySelector('.stop-watch')
-        if(timerEl) timerEl.style.display = 'none';
         const tableEl = document.querySelector('.table')
         tableEl.classList.add('big')
     }
@@ -250,25 +241,18 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                         <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
                     </div>)
                 }
-                <div className="display-panel-container">
-                    {gameStarted &&  (<Hint className="hint-container" nextNum={nextNum}/>)}
-                    <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} gameStarted={gameStarted}/>
-                    {gameStarted &&  (<StopWatch time={timer}/>)}
+                <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
+                    {kidsMode && ( 
+                        <div className="adult-icon-container">
+                            <img className="adult-mode-image" onClick={KidsModeOff}  src={adultMode}/> 
+                        </div>)
+                    }
+                    {gameStarted &&  (<Hint className="hint-container" nextNum={nextNum} kidsMode={kidsMode}/>)}
+                    <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} gameStarted={gameStarted} kidsMode={kidsMode}/>
+                    {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
                 </div>
                     
                 </div>
-                {/* <div className="display-panel-container">
-                    <div className="stop-watch-container">
-                        
-                        {kidsMode && ( 
-                            <img className="adult-mode-image" onClick={KidsModeOff} 
-                                src={adultMode}/>)
-                        }
-                                   
-                        
-                    </div>
-                    
-                </div> */}
 
                 <section className="table-container">
                     <dialog className="modal">
@@ -291,14 +275,14 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                     </dialog>
 
                     <dialog className="pause-modal">    
-                        <PauseMenu onClosePause={onClosePause}/>
+                        <PauseMenu onClosePause={onClosePause} restart={restartGame}/>
                     </dialog>
 
                     <dialog className="instructions-modal">    
                         <InstructionsMenu onCloseInstructions={onCloseInstructions}/>
                     </dialog>
 
-                    { !isWin ? <img src={mapBg} className="mapBg"></img> : ''}
+                    { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}
                     { !isWin ? <div className="myDynamicTable"></div> : ''}
                     <div className="user-msg"></div>
                 </section>
