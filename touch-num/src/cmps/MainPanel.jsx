@@ -82,10 +82,10 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     }
 
     function startGame(){
-        if( isNewGame){
-            setIsNewGame(false)
-            openInstructions()
-        } 
+        // if( isNewGame){
+        //     setIsNewGame(false)
+        //     openInstructions()
+        // } 
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
         deleteOlderGame();
