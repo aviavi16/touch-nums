@@ -179,6 +179,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     }
 
     const handleReset = () => {
+        setIsWin(false)
         const el = document.querySelector('.victory-container.show')
         if(el){
             el.className = 'victory-container';

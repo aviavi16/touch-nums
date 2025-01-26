@@ -40,7 +40,7 @@ export function Victory({ getTime , onReset ,onPause }){
             </div>
             <div className="background"></div>
             <div className="name"></div>
-            <button name="score" type="button" onClick={handlePause} className="new-game-btn" > Show Score </button>
+            <button name="score" type="button" onClick={handlePause} className="show-score-btn" > Show Score </button>
             <button name="back" type="button" onClick={onReset} className="btn" > Quit </button>
 
         </section>
