@@ -12,7 +12,7 @@ import mapBg from "../imgs/map.png"
 export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructions}){
     const [ gameStarted, setGameStarted ] = useState( false )
     const [ isWin, setIsWin ] = useState( false )
-
+    const[ isNewGame, setIsNewGame ] = useState( true )
     const [ nextNum , setNextNum ] = useState( 0 )
     const [ timer, setTimer ] = useState( 0 )
     let  _currentNumber = useRef(0)
@@ -25,9 +25,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         document.documentElement.style.setProperty("--my-size", Math.sqrt(tableSize) );
     }, [tableSize]);
 
-    useEffect(()=>{
-        openInstructions()
-    }, [])
     var gDifficulty = 'Easy'
     var gSize = 16;
 
@@ -85,6 +82,10 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     }
 
     function startGame(){
+        if( isNewGame){
+            setIsNewGame(false)
+            openInstructions()
+        } 
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
         deleteOlderGame();
