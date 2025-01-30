@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
 import { Victory } from "./Victory";
 import kidMode from "../imgs/kidsMode.png"
 import mapBg from "../imgs/map.png"
+import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
+import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 
 export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructions}){
     const [ gameStarted, setGameStarted ] = useState( false )
@@ -43,17 +45,30 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     }
 
     function choose(cell){
-        console.log('cell.innerText:', cell.innerText + " " + _currentNumber.current)
         if (parseInt(cell.innerText) === _currentNumber.current)
             success()
-        else
+        else{
+            blink(cell)
+            fail()
             return
+        }
+          
         cell.className += ' choose';
         return
     }
 
+    function fail(){
+        const sound = new Audio(failSfx); // Create an audio instance
+        sound.play(); // Play the sound
+    }
+
+    function blink(cell){
+        cell.classList.toggle('blink'); // Toggles the blink animation
+    }
+
     function success(){
-        console.log('success:')
+        const sound = new Audio(boopSfx); // Create an audio instance
+        sound.play(); // Play the sound
         _currentNumber.current++;
         if ( _currentNumber.current === gSize) 
             win()
@@ -95,7 +110,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         setTimer(0);
         _currentNumber.current = 0;
 
-        console.log('gDifficulty:', gDifficulty)
         switch (gDifficulty){
             case 'Medium':
                 gSize = 25;
@@ -111,7 +125,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                 setTableSize(16)
                 break;
         }
-        console.log('gDifficulty:', gSize)
     
         var div = document.querySelector('.myDynamicTable');
         var table = document.createElement('table');
@@ -223,11 +236,6 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         startGame()
         const tableEl = document.querySelector('.table')
         tableEl.classList.add('big')
-    }
-    
-    function blink(){
-        const element = document.querySelector('.blinking-element');
-        element.classList.toggle('blink'); // Toggles the blink animation
     }
     
     return (

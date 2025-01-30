@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react"
 
 export function Victory({ getTime , onReset ,onPause }){
-    const [ time, setTime ] = useState(0)
-
-    useEffect ( ()=>{   
-        console.log('victory use effect getTime():', getTime)
-        //setTime ( getTime())
-
-    }, [time])
-
-    function handleReset(){
-        onReset();
-    }
 
     function handlePause(){
         onPause();
