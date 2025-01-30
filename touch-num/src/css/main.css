@@ -49,16 +49,20 @@ body{
     height: 100%;
 }
 
-.myDynamicTable{
+/* .myDynamicTable{
     display: flex;
     justify-content: center;
     height: 100%;
     align-content: start;
     margin-block-start: 10px;
     flex-wrap: wrap;
+} */
+
+.centered-panel{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
-
-
 
 .table{
     table-layout:fixed;
@@ -108,8 +112,9 @@ body{
 }
 
 .display-panel-container{
+    width: 100%;
     display: flex;
-    justify-content: space-between;    
+    justify-content: flex-start;    
 }
 
 

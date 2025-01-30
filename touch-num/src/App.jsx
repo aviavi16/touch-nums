@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Header } from "./cmps/Header";
 import { MainPanel } from "./cmps/MainPanel";
 import { Footer } from "./cmps/Footer";
+import { InstructionsMenu } from "./cmps/InstructionsMenu";
 
 export function App() {
     const [ kidsMode, setKidsMode ] = useState( false )
+    const [ instructionsOpened, setInstructionsOpened ] = useState( false )
 
     function endKidsMode() {
         setKidsMode(false)
@@ -19,7 +21,14 @@ export function App() {
         return timer
     }
 
+        
+    function closeInstructions(){
+        setInstructionsOpened(false)
+        document.querySelector('.instructions-modal').close()
+    }
+
     function openInstructions(){
+        setInstructionsOpened(true)
         const elName = document.querySelector('.instructions-modal')
         elName.showModal() 
     }
@@ -38,7 +47,10 @@ export function App() {
                 <Header kidsMode={kidsMode} startKidsMode={startKidsMode} openInstructions={openInstructions}/>
             </div>
 
-            <MainPanel startKidsMode={startKidsMode} endKidsMode={endKidsMode} kidsMode={kidsMode} openInstructions={openInstructions}/>            
+            <dialog className="instructions-modal">    
+                <InstructionsMenu onCloseInstructions={closeInstructions}/>
+            </dialog>
+            <MainPanel startKidsMode={startKidsMode} endKidsMode={endKidsMode} kidsMode={kidsMode} instructionsOpened={instructionsOpened}/>            
             <Footer />
         </section>
         

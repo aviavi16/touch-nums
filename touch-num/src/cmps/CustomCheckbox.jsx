@@ -1,9 +1,12 @@
 import { useState } from "react";
 
-export function CustomCheckbox(){
+export function CustomCheckbox({ onMute }){
     const [isChecked, setIsChecked] = useState(false);
     
-    const toggleCheckbox = () => setIsChecked(!isChecked);
+    const toggleCheckbox = () => {
+        onMute();
+        setIsChecked(!isChecked);
+    }
 
     return(
         <div

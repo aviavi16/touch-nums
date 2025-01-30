@@ -3,16 +3,18 @@ import { Hint } from "./Hint";
 import { StopWatch } from "./StopWatch";
 import { PauseMenu } from "./PauseMenu";
 import adultMode from "../imgs/adultMode.jfif"
-import { InstructionsMenu } from "./InstructionsMenu";
 import { useEffect, useRef, useState } from "react";
 import { Victory } from "./Victory";
 import kidMode from "../imgs/kidsMode.png"
 import mapBg from "../imgs/map.png"
 import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
+import { GameTable } from "./GameTable";
 
-export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructions}){
+export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOpened}){
     const [ gameStarted, setGameStarted ] = useState( false )
+    const [ gamePause, setGamePause ] = useState( true )
+
     const [ isWin, setIsWin ] = useState( false )
     const[ isNewGame, setIsNewGame ] = useState( true )
     const [ nextNum , setNextNum ] = useState( 0 )
@@ -20,22 +22,30 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     let  _currentNumber = useRef(0)
     let  timeInterval = useRef(null)
     const [ tableSize, setTableSize] = useState(16)
+    const [muteSound, setMuteSound] = useState(false); // State to track mute
+    const [muteEffects, setMuteEffects] = useState(false); // State to track mute
+
 
 
     useEffect(() => {
-        // Set the CSS variable
-        document.documentElement.style.setProperty("--my-size", Math.sqrt(tableSize) );
-    }, [tableSize]);
+        console.log('here')
+        gamePause ? handleStart() : handlePause()
+    }, [instructionsOpened]);
+
+    // useEffect(() => {
+    //     // Set the CSS variable
+    //     document.documentElement.style.setProperty("--my-size", Math.sqrt(tableSize) );
+    // }, [tableSize]);
 
     var gDifficulty = 'Easy'
     var gSize = 16;
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i >= 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
+    // function shuffleArray(array) {
+    //     for (let i = array.length - 1; i >= 0; i--) {
+    //         const j = Math.floor(Math.random() * (i + 1));
+    //         [array[i], array[j]] = [array[j], array[i]];
+    //     }
+    // }
     
     function deleteOlderGame(){
         var div = document.querySelector('.myDynamicTable');
@@ -44,37 +54,44 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     
     }
 
-    function choose(cell){
-        if (parseInt(cell.innerText) === _currentNumber.current)
-            success()
-        else{
-            blink(cell)
-            fail()
-            return
-        }
+    // function choose(cell){
+    //     if (parseInt(cell.innerText) === _currentNumber.current)
+    //         success()
+    //     else{
+    //         blink(cell)
+    //         fail()
+    //         return
+    //     }
           
-        cell.className += ' choose';
-        return
-    }
+    //     cell.className += ' choose';
+    //     return
+    // }
 
-    function fail(){
-        const sound = new Audio(failSfx); // Create an audio instance
-        sound.play(); // Play the sound
-    }
+    // function fail(){
+    //     console.log('muteEffects:', muteEffects)
 
-    function blink(cell){
-        cell.classList.toggle('blink'); // Toggles the blink animation
-    }
+    //     if (!muteEffects) { // Only play sound if not muted
+    //         const sound = new Audio(failSfx); // Create an audio instance
+    //         sound.play(); // Play the sound
+    //     }     
+    // }
 
-    function success(){
-        const sound = new Audio(boopSfx); // Create an audio instance
-        sound.play(); // Play the sound
-        _currentNumber.current++;
-        if ( _currentNumber.current === gSize) 
-            win()
+    // function blink(cell){
+    //     cell.classList.toggle('blink'); // Toggles the blink animation
+    // }
 
-        setNextNum (prev => prev + 1)
-    }
+    // function success(){
+    //     console.log('muteEffects:', muteEffects)
+    //     if (!muteEffects) { // Only play sound if not muted
+    //         const sound = new Audio(boopSfx); // Create an audio instance
+    //         sound.play(); // Play the sound
+    //     }
+    //     _currentNumber.current++;
+    //     if ( _currentNumber.current === gSize) 
+    //         win()
+
+    //     setNextNum (prev => prev + 1)
+    // }
 
     function win(){
         clearInterval(timeInterval.current);
@@ -90,17 +107,11 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
     }
 
     const handlePause = () => {
-        if (!gameStarted) return;
-        openPause();
-        setGameStarted(false);
+        setGamePause(true)
         clearInterval(timeInterval.current);
     }
 
     function startGame(){
-        // if( isNewGame){
-        //     setIsNewGame(false)
-        //     openInstructions()
-        // } 
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
         deleteOlderGame();
@@ -126,37 +137,40 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                 break;
         }
     
-        var div = document.querySelector('.myDynamicTable');
-        var table = document.createElement('table');
-        table.className= 'table';
-        var tableBody = document.createElement('tbody');
-        var numberOfRowCols = Math.sqrt(gSize);
+        // var div = document.querySelector('.myDynamicTable');
+        // var table = document.createElement('table');
+        // table.className= 'table';
+        // var tableBody = document.createElement('tbody');
+        // var numberOfRowCols = Math.sqrt(gSize);
     
-        var allNums = Array(gSize).fill().map((_, i) => i * 1);
-        shuffleArray(allNums);
+        // var allNums = Array(gSize).fill().map((_, i) => i * 1);
+        // shuffleArray(allNums);
     
-        for (var i = 0; i < numberOfRowCols; i++) {
-            var tr = document.createElement('tr');
-            tableBody.appendChild(  tr   );
-            for (var j = 0; j < numberOfRowCols; j++) {
-                var td =  document.createElement('td');
-                td.className = 'td';
-                td.onclick =  function (evt) { choose(this); }
-                var span = document.createElement('span');
+        // for (var i = 0; i < numberOfRowCols; i++) {
+        //     var tr = document.createElement('tr');
+        //     tableBody.appendChild(  tr   );
+        //     for (var j = 0; j < numberOfRowCols; j++) {
+        //         var td =  document.createElement('td');
+        //         td.className = 'td';
+        //         td.onclick =  function (evt) { choose(this); }
+        //         var span = document.createElement('span');
     
-                span.innerText =  allNums.pop();
-                td.appendChild(span) 
-                    tr.appendChild(  td     ) ;
-            }
-        }
-        table.appendChild (tableBody);
-        div.appendChild (table);
-        handleStart();
+        //         span.innerText =  allNums.pop();
+        //         td.appendChild(span) 
+        //             tr.appendChild(  td     ) ;
+        //     }
+        // }
+        // table.appendChild (tableBody);
+        // div.appendChild (table);
+        setGameStarted(true)
+        timeInterval.current = setInterval(() => {
+            setTimer((timer) => timer + 10);
+        }, 10);
         onCloseModal();
     }
 
     const handleStart = () => {
-        setGameStarted(true);
+        setGamePause(false)
         timeInterval.current = setInterval(() => {
             setTimer((timer) => timer + 10);
         }, 10);
@@ -173,19 +187,16 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         onClosePause()
         openNew()
     }
-    
-    function onCloseInstructions(){
-        document.querySelector('.instructions-modal').close()
-    }
 
     function openPause(){
         const elName = document.querySelector('.pause-modal')
         elName.showModal() 
+        handlePause()
     }
 
     function onClosePause(){
         document.querySelector('.pause-modal').close()
-        handleStart();
+        handleStart()
     }
 
     function onCloseModal() {
@@ -238,6 +249,20 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
         tableEl.classList.add('big')
     }
     
+    function onMuteSound(){
+        console.log('onMuteSound:')
+        setMuteSound(muteSound => !muteSound)
+    }
+
+    function onMuteEffects(){
+        console.log('on muteEffects:', muteEffects)
+        var test = muteEffects ? false : true
+        console.log('test:', test)
+        setMuteEffects(test)
+        console.log('end muteEffects:', muteEffects)
+
+    }
+
     return (
         <div className="app-bg-container">
             <Victory getTime={timer} onReset={handleReset} onPause={handleTest}/> 
@@ -246,22 +271,23 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
             <button id="blink-button" onClick={blink}>Start Blinking</button> */}
             <div className="app-container">
                 <div className="buttons-watch-container">
-                {!kidsMode && ( 
-                    <div className="kids-icon-container">
-                        <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
-                    </div>)
-                }
-                <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
-                    {kidsMode && ( 
-                        <div className="adult-icon-container">
-                            <img className="adult-mode-image" onClick={KidsModeOff}  src={adultMode}/> 
-                        </div>)
-                    }
-                    {gameStarted &&  (<Hint className="hint-container" nextNum={nextNum} kidsMode={kidsMode}/>)}
-                    <Buttons newGame={openNew} pauseGame={handlePause} quitGame={handleReset} gameStarted={gameStarted} kidsMode={kidsMode}/>
-                    {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
-                </div>
-                    
+                    <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
+                        {!kidsMode && ( 
+                            <div className="kids-icon-container">
+                                <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
+                            </div>)
+                        }
+                        {kidsMode && ( 
+                            <div className="adult-icon-container">
+                                <img className="adult-mode-image" onClick={KidsModeOff}  src={adultMode}/> 
+                            </div>)
+                        }
+                        <div className="centered-panel">
+                            <Buttons newGame={openNew} pauseGame={openPause} quitGame={handleReset} gameStarted={gameStarted} kidsMode={kidsMode}/>
+                            {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
+                        </div>
+                      
+                    </div>   
                 </div>
 
                 <section className="table-container">
@@ -285,15 +311,12 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, openInstructio
                     </dialog>
 
                     <dialog className="pause-modal">    
-                        <PauseMenu onClosePause={onClosePause} restart={restartGame}/>
-                    </dialog>
-
-                    <dialog className="instructions-modal">    
-                        <InstructionsMenu onCloseInstructions={onCloseInstructions}/>
+                        <PauseMenu onClosePause={onClosePause} restart={restartGame} onMuteEffects={onMuteEffects} onMuteSound={onMuteSound}/>
                     </dialog>
 
                     { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}
-                    { !isWin ? <div className="myDynamicTable"></div> : ''}
+                    {/* { !isWin ? <div className="myDynamicTable"></div> : ''} */}
+                    <GameTable gSize={tableSize} isGameStarted={gameStarted}  muteEffects={muteEffects} kidsMode={kidsMode}/>
                     <div className="user-msg"></div>
                 </section>
 
