@@ -316,7 +316,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
 
                     { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}
                     {/* { !isWin ? <div className="myDynamicTable"></div> : ''} */}
-                    <GameTable gSize={tableSize} isGameStarted={gameStarted}  muteEffects={muteEffects} kidsMode={kidsMode}/>
+                    <GameTable gSize={tableSize} isGameStarted={gameStarted}  muteEffects={muteEffects} kidsMode={kidsMode} win={win} isWin={isWin}/>
                     <div className="user-msg"></div>
                 </section>
 

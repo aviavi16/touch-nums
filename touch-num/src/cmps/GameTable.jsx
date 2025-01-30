@@ -3,7 +3,7 @@ import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { Hint } from "./Hint";
 
-export function GameTable ({ gSize, isGameStarted , muteEffects, kidsMode}) {
+export function GameTable ({ gSize, isGameStarted , muteEffects, kidsMode, win, isWin}) {
     const [currentNumber, setCurrentNumber] = useState(0);
 
     // ✅ Shuffle numbers only when the game starts
@@ -50,22 +50,20 @@ export function GameTable ({ gSize, isGameStarted , muteEffects, kidsMode}) {
     }
 
     function success(){
-        console.log('muteEffects:', muteEffects, !muteEffects)
         if (!muteEffects) { // Only play sound if not muted
-            console.log('muteEffects:', muteEffects)
-
             const sound = new Audio(boopSfx); // Create an audio instance
             sound.play(); // Play the sound
         }
         setCurrentNumber (prev => prev + 1)
-        if ( currentNumber === gSize) 
+        console.log('currentNumber:', currentNumber,  " ", gSize)
+        if ( currentNumber === gSize - 1) 
             win()
     }
 
     return (
         <div className="game-table-container">
-            {isGameStarted &&  (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode}/>)}
-            { isGameStarted ? 
+            {isGameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode}/>)}
+            { isGameStarted && !isWin ? 
                 ( <table className="table">
                     <tbody>
                         {shuffledNums.map((row, rowIndex) => (
