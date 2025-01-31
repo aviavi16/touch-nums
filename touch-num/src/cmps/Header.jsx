@@ -1,5 +1,5 @@
 
-export function Header({ openInstructions }){
+export function Header({openInstructions}){
     return (
         <div className="header-bg-container">
             <div className="header-sub-container">

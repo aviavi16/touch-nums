@@ -10,10 +10,13 @@ import mapBg from "../imgs/map.png"
 import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { GameTable } from "./GameTable";
+import { useDispatch, useSelector } from "react-redux";
+import { activateKidsMode, disableKidsMode, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
 
-export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOpened}){
-    const [ gameStarted, setGameStarted ] = useState( false )
-    const [ gamePause, setGamePause ] = useState( true )
+export function MainPanel(){
+    const gameStarted = useSelector((state) => state.gameStarted);
+    const gamePaused = useSelector((state) => state.gamePaused);
+    const kidsMode = useSelector((state) => state.kidsMode);
 
     const [ isWin, setIsWin ] = useState( false )
     const[ isNewGame, setIsNewGame ] = useState( true )
@@ -24,74 +27,31 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
     const [ tableSize, setTableSize] = useState(16)
     const [muteSound, setMuteSound] = useState(false); // State to track mute
     const [muteEffects, setMuteEffects] = useState(false); // State to track mute
-
-
-
-    useEffect(() => {
-        console.log('here')
-        gamePause ? handleStart() : handlePause()
-    }, [instructionsOpened]);
-
-    // useEffect(() => {
-    //     // Set the CSS variable
-    //     document.documentElement.style.setProperty("--my-size", Math.sqrt(tableSize) );
-    // }, [tableSize]);
+    const dispatch = useDispatch(); // Redux dispatcher
 
     var gDifficulty = 'Easy'
-    var gSize = 16;
+    var gSize = 16; 
 
-    // function shuffleArray(array) {
-    //     for (let i = array.length - 1; i >= 0; i--) {
-    //         const j = Math.floor(Math.random() * (i + 1));
-    //         [array[i], array[j]] = [array[j], array[i]];
-    //     }
-    // }
-    
-    function deleteOlderGame(){
-        var div = document.querySelector('.myDynamicTable');
-        if (div)
-            div.innerHTML = ''
-    
-    }
+    useEffect(()=>{
+        console.log("gamePaused changed:", gamePaused); // ✅ Debug log
 
-    // function choose(cell){
-    //     if (parseInt(cell.innerText) === _currentNumber.current)
-    //         success()
-    //     else{
-    //         blink(cell)
-    //         fail()
-    //         return
-    //     }
-          
-    //     cell.className += ' choose';
-    //     return
-    // }
+        if (gamePaused) {
+            clearInterval(timeInterval.current)
+            // Perform your effect (e.g., pause the game)
+        } else{
+            console.log("Resuming game: starting timer...");
+            timeInterval.current = setInterval(() => {
+                setTimer((prevTimer) => prevTimer + 10); // ✅ Use previous state
+            }, 10);
+        }
+        return () => clearInterval(timeInterval.current); // ✅ Cleanup interval on unmount
 
-    // function fail(){
-    //     console.log('muteEffects:', muteEffects)
+    }, [gamePaused])
 
-    //     if (!muteEffects) { // Only play sound if not muted
-    //         const sound = new Audio(failSfx); // Create an audio instance
-    //         sound.play(); // Play the sound
-    //     }     
-    // }
-
-    // function blink(cell){
-    //     cell.classList.toggle('blink'); // Toggles the blink animation
-    // }
-
-    // function success(){
-    //     console.log('muteEffects:', muteEffects)
-    //     if (!muteEffects) { // Only play sound if not muted
-    //         const sound = new Audio(boopSfx); // Create an audio instance
-    //         sound.play(); // Play the sound
-    //     }
-    //     _currentNumber.current++;
-    //     if ( _currentNumber.current === gSize) 
-    //         win()
-
-    //     setNextNum (prev => prev + 1)
-    // }
+    const changeDifficulty = (level) => {
+        dispatch(setDifficulty(level));
+        console.log(`Difficulty changed to: ${level}`);
+    };
 
     function win(){
         clearInterval(timeInterval.current);
@@ -107,80 +67,47 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
     }
 
     const handlePause = () => {
-        setGamePause(true)
+        dispatch(pauseGame())
         clearInterval(timeInterval.current);
     }
 
-    function startGame(){
+    function startGameMenu(){
         if (document.querySelector('.difficulty-container'))
             gDifficulty = document.querySelector('.difficulty-container').value;
-        deleteOlderGame();
-        setNextNum(0)
-        setGameStarted(false);
-        clearInterval(timeInterval.current);
-        setTimer(0);
-        _currentNumber.current = 0;
-
         switch (gDifficulty){
             case 'Medium':
                 gSize = 25;
-                setTableSize(25)
+                changeDifficulty(25)
                 break;
             case 'Hard':
                 gSize = 36;
-                setTableSize(36)
+                changeDifficulty(36)
                 break;
             case 'Easy': 
             default:
                 gSize = 16;
-                setTableSize(16)
+                changeDifficulty(16)
                 break;
         }
     
-        // var div = document.querySelector('.myDynamicTable');
-        // var table = document.createElement('table');
-        // table.className= 'table';
-        // var tableBody = document.createElement('tbody');
-        // var numberOfRowCols = Math.sqrt(gSize);
-    
-        // var allNums = Array(gSize).fill().map((_, i) => i * 1);
-        // shuffleArray(allNums);
-    
-        // for (var i = 0; i < numberOfRowCols; i++) {
-        //     var tr = document.createElement('tr');
-        //     tableBody.appendChild(  tr   );
-        //     for (var j = 0; j < numberOfRowCols; j++) {
-        //         var td =  document.createElement('td');
-        //         td.className = 'td';
-        //         td.onclick =  function (evt) { choose(this); }
-        //         var span = document.createElement('span');
-    
-        //         span.innerText =  allNums.pop();
-        //         td.appendChild(span) 
-        //             tr.appendChild(  td     ) ;
-        //     }
-        // }
-        // table.appendChild (tableBody);
-        // div.appendChild (table);
-        setGameStarted(true)
-        timeInterval.current = setInterval(() => {
-            setTimer((timer) => timer + 10);
-        }, 10);
+        dispatch(startGame())
         onCloseModal();
     }
 
     const handleStart = () => {
-        setGamePause(false)
-        timeInterval.current = setInterval(() => {
-            setTimer((timer) => timer + 10);
-        }, 10);
+        dispatch(resumeGame())
     }
 
     function restartGame(){
         //promt?
-        deleteOlderGame();
         setNextNum(0)
-        setGameStarted(false);
+        console.log("Resetting game...");
+        dispatch(resetGameAction()); // ✅ Set gameStarted to false
+    
+        setTimeout(() => {
+            dispatch(startGame()); // ✅ Restart game
+            console.log("Game restarted!");
+        }, 0); // Small delay to trigger re-render
         clearInterval(timeInterval.current);
         setTimer(0);
         _currentNumber.current = 0;
@@ -204,25 +131,18 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
     }
 
     const handleReset = () => {
+        console.log("Resetting game...");
+  
         setIsWin(false)
         const el = document.querySelector('.victory-container.show')
         if(el){
             el.className = 'victory-container';
         }
-           
-        deleteOlderGame();
+        dispatch.resetGameAction()
         setNextNum(0)
-        setGameStarted(false);
         clearInterval(timeInterval.current);
         setTimer(0);
-        _currentNumber.current = 0;
-
-        if(kidsMode){
-            gDifficulty = 'Easy'
-            startGame()
-            const tableEl = document.querySelector('.table')
-            tableEl.classList.add('big')
-        }       
+        _currentNumber.current = 0;     
     }
 
     const handleTest = () => {
@@ -232,21 +152,18 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
     }
 
     function KidsModeOff() {
-        endKidsMode()
-        deleteOlderGame();
-        setNextNum(0)
-        setGameStarted(false);
-        clearInterval(timeInterval.current);
-        setTimer(0);
-        _currentNumber.current = 0;
+        dispatch(disableKidsMode())
+        dispatch(resetGameAction())
     }
 
     function KidsModeOn() {
-        startKidsMode()
-        if (document.querySelector('.difficulty-container')) document.querySelector('.difficulty-container').value = 'Easy';
-        startGame()
-        const tableEl = document.querySelector('.table')
-        tableEl.classList.add('big')
+        dispatch(activateKidsMode())
+        dispatch(resetGameAction()); // ✅ Set gameStarted to false
+    
+        setTimeout(() => {
+            dispatch(startGame()); // ✅ Restart game
+            console.log("Game restarted!");
+        }, 0); // Small delay to trigger re-render
     }
     
     function onMuteSound(){
@@ -283,7 +200,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
                             </div>)
                         }
                         <div className="centered-panel">
-                            <Buttons newGame={openNew} pauseGame={openPause} quitGame={handleReset} gameStarted={gameStarted} kidsMode={kidsMode}/>
+                            <Buttons startGameMenu={openNew} openPause={openPause}/>
                             {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
                         </div>
                       
@@ -306,7 +223,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
                     
 
                         <button name="cancel" onClick={onCloseModal}> Cancel </button>
-                        <button name="start" onClick={startGame}> Start </button>
+                        <button name="start" onClick={startGameMenu}> Start </button>
                         
                     </dialog>
 
@@ -316,7 +233,7 @@ export function MainPanel({ kidsMode, startKidsMode, endKidsMode, instructionsOp
 
                     { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}
                     {/* { !isWin ? <div className="myDynamicTable"></div> : ''} */}
-                    <GameTable gSize={tableSize} isGameStarted={gameStarted}  muteEffects={muteEffects} kidsMode={kidsMode} win={win} isWin={isWin}/>
+                    <GameTable muteEffects={muteEffects} win={win} isWin={isWin}/>
                     <div className="user-msg"></div>
                 </section>
 

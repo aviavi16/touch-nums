@@ -1,21 +1,15 @@
-import { useEffect, useRef, useState } from "react";
 import { Header } from "./cmps/Header";
 import { MainPanel } from "./cmps/MainPanel";
 import { Footer } from "./cmps/Footer";
 import { InstructionsMenu } from "./cmps/InstructionsMenu";
+import { useDispatch } from "react-redux";
+import { pauseGame, resumeGame } from "./store/game/game.reducer";
 
 export function App() {
-    const [ kidsMode, setKidsMode ] = useState( false )
-    const [ instructionsOpened, setInstructionsOpened ] = useState( false )
+    const dispatch = useDispatch(); // Redux dispatcher
 
-    function endKidsMode() {
-        setKidsMode(false)
-    }
 
-    function startKidsMode(){
-        setKidsMode(true)
-    }
-
+  
     function getWinTime(){
         console.log('timer:', timer)
         return timer
@@ -23,12 +17,12 @@ export function App() {
 
         
     function closeInstructions(){
-        setInstructionsOpened(false)
+        dispatch(resumeGame())
         document.querySelector('.instructions-modal').close()
     }
 
     function openInstructions(){
-        setInstructionsOpened(true)
+        dispatch(pauseGame())
         const elName = document.querySelector('.instructions-modal')
         elName.showModal() 
     }
@@ -44,13 +38,13 @@ export function App() {
     return (
         <section className="app">
             <div className="header-container">
-                <Header kidsMode={kidsMode} startKidsMode={startKidsMode} openInstructions={openInstructions}/>
+                <Header openInstructions={openInstructions}/>
             </div>
 
             <dialog className="instructions-modal">    
                 <InstructionsMenu onCloseInstructions={closeInstructions}/>
             </dialog>
-            <MainPanel startKidsMode={startKidsMode} endKidsMode={endKidsMode} kidsMode={kidsMode} instructionsOpened={instructionsOpened}/>            
+            <MainPanel />            
             <Footer />
         </section>
         

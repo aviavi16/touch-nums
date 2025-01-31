@@ -2,28 +2,45 @@ import { useEffect, useMemo, useState } from "react";
 import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { Hint } from "./Hint";
+import { UseFirstRenderEffect } from "./UseFirstRenderEffect";
+import { useSelector, useDispatch } from "react-redux";
+import { startGame, resetGameAction } from "../store/game/game.reducer";
 
-export function GameTable ({ gSize, isGameStarted , muteEffects, kidsMode, win, isWin}) {
+export function GameTable ({ muteEffects, win, isWin}) {
     const [currentNumber, setCurrentNumber] = useState(0);
+    const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
+    const dispatch = useDispatch(); // Redux dispatcher
+    const difficulty = useSelector((state) => state.difficulty);
+    const kidsMode = useSelector((state) => state.kidsMode);
+
+    const resetGame = () => {
+        console.log("Resetting game...");
+        dispatch(resetGameAction()); // ✅ Set gameStarted to false
+    
+        setTimeout(() => {
+            dispatch(startGame()); // ✅ Restart game
+            console.log("Game restarted!");
+        }, 0); // Small delay to trigger re-render
+    };
 
     // ✅ Shuffle numbers only when the game starts
     const shuffledNums = useMemo(() => {
-        if (!isGameStarted) return []; // Avoid rendering empty numbers before game starts
-        console.log("Shuffling numbers...");
-        let allNums = Array.from({ length: gSize }, (_, i) => i);
-        allNums = shuffleArray([...allNums]);
-        // Split into rows of sqrt gSize columns each
-        let rows = [];
-        let numOfRows = Math.sqrt(gSize)
+        if (!gameStarted) return []; // Avoid rendering empty numbers before game starts
+        const effectiveDifficulty = kidsMode ? 16 : difficulty; // ✅ Force 16 if kidsMode is ON
+
+        let allNums = Array.from({ length: effectiveDifficulty }, (_, i) => i)
+        allNums = shuffleArray([...allNums])
+        // Split into rows of sqrt difficulty columns each
+        let rows = []
+        let numOfRows = Math.sqrt(effectiveDifficulty)
         for (let i = 0; i < allNums.length; i += numOfRows) {
             rows.push(allNums.slice(i, i + numOfRows));
         }
-        console.log('rows:', rows)
-        return rows;
-    }, [isGameStarted]); // ✅ Only shuffles when `isGameStarted` changes
+        return rows
+    }, [gameStarted]); // ✅ Only shuffles when `gameStarted` changes
 
     function shuffleArray(array) {
-        return array.sort(() => Math.random() - 0.5);
+        return array.sort(() => Math.random() - 0.5)
     }
 
     function choose(num, cell) {
@@ -55,15 +72,15 @@ export function GameTable ({ gSize, isGameStarted , muteEffects, kidsMode, win, 
             sound.play(); // Play the sound
         }
         setCurrentNumber (prev => prev + 1)
-        console.log('currentNumber:', currentNumber,  " ", gSize)
-        if ( currentNumber === gSize - 1) 
+        console.log('currentNumber:', currentNumber,  " ", difficulty)
+        if ( currentNumber === difficulty - 1) 
             win()
     }
 
     return (
         <div className="game-table-container">
-            {isGameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode}/>)}
-            { isGameStarted && !isWin ? 
+            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode}/>)}
+            { gameStarted && !isWin ? 
                 ( <table className="table">
                     <tbody>
                         {shuffledNums.map((row, rowIndex) => (

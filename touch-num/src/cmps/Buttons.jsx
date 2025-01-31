@@ -1,12 +1,17 @@
-export function Buttons({ newGame, pauseGame, gameStarted, kidsMode }) {
-    return (
+import { useSelector } from "react-redux";
+
+export function Buttons({ startGameMenu, openPause}) {
+  const kidsMode = useSelector((state) => state.kidsMode);
+  const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
+
+  return (
       !kidsMode && (
         <section className="buttons-container">
           {gameStarted ? (
             <button
               name="pause"
               type="button"
-              onClick={pauseGame}
+              onClick={openPause}
               className="new-game-btn"
             >
               Options
@@ -15,7 +20,7 @@ export function Buttons({ newGame, pauseGame, gameStarted, kidsMode }) {
             <button
               name="start"
               type="button"
-              onClick={newGame}
+              onClick={startGameMenu}
               className="new-game-btn"
             >
               New Game
