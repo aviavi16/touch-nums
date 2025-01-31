@@ -161,8 +161,8 @@ export function MainPanel(){
             <div className="app-container">
                 <div className="buttons-watch-container">
                     <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
-                        { !isMute ? (<MuteIcon alt="Mute Icon" className="icon" onClick={muteVolume} />) :
-                        (<VolumeIcon alt="Sound Icon" className="icon"  onClick={activateVolume} />) }
+                        { !isMute ? (<MuteIcon alt="Mute Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={muteVolume} />) :
+                        (<VolumeIcon alt="Sound Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={activateVolume} />) }
                         <div className="centered-panel">
                             <Buttons startGameMenu={openNew} openPause={openPause}/>
                             {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
