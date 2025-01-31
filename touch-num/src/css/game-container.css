@@ -1,4 +1,9 @@
-.game-table-container{
+.hints-modes-container{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+}
+
+.hints-modes-kids-container{
+    display: flex;
+    justify-content: space-between;
 }

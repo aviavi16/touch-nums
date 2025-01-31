@@ -2,22 +2,17 @@ import { Buttons } from "./Buttons";
 import { Hint } from "./Hint";
 import { StopWatch } from "./StopWatch";
 import { PauseMenu } from "./PauseMenu";
-import adultMode from "../imgs/adultMode.jfif"
 import { useEffect, useRef, useState } from "react";
 import { Victory } from "./Victory";
-import kidMode from "../imgs/kidsMode.png"
 import mapBg from "../imgs/map.png"
-import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
-import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { GameTable } from "./GameTable";
 import { useDispatch, useSelector } from "react-redux";
-import { activateKidsMode, disableKidsMode, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
+import {  pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
 
 export function MainPanel(){
     const gameStarted = useSelector((state) => state.gameStarted);
     const gamePaused = useSelector((state) => state.gamePaused);
     const kidsMode = useSelector((state) => state.kidsMode);
-
     const [ isWin, setIsWin ] = useState( false )
     const[ isNewGame, setIsNewGame ] = useState( true )
     const [ nextNum , setNextNum ] = useState( 0 )
@@ -103,14 +98,7 @@ export function MainPanel(){
         setNextNum(0)
         console.log("Resetting game...");
         dispatch(resetGameAction()); // ✅ Set gameStarted to false
-    
-        setTimeout(() => {
-            dispatch(startGame()); // ✅ Restart game
-            console.log("Game restarted!");
-        }, 0); // Small delay to trigger re-render
-        clearInterval(timeInterval.current);
-        setTimer(0);
-        _currentNumber.current = 0;
+        setTimer(0)
         onClosePause()
         openNew()
     }
@@ -150,21 +138,6 @@ export function MainPanel(){
         el.classList.add('show')
 
     }
-
-    function KidsModeOff() {
-        dispatch(disableKidsMode())
-        dispatch(resetGameAction())
-    }
-
-    function KidsModeOn() {
-        dispatch(activateKidsMode())
-        dispatch(resetGameAction()); // ✅ Set gameStarted to false
-    
-        setTimeout(() => {
-            dispatch(startGame()); // ✅ Restart game
-            console.log("Game restarted!");
-        }, 0); // Small delay to trigger re-render
-    }
     
     function onMuteSound(){
         console.log('onMuteSound:')
@@ -189,16 +162,7 @@ export function MainPanel(){
             <div className="app-container">
                 <div className="buttons-watch-container">
                     <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
-                        {!kidsMode && ( 
-                            <div className="kids-icon-container">
-                                <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
-                            </div>)
-                        }
-                        {kidsMode && ( 
-                            <div className="adult-icon-container">
-                                <img className="adult-mode-image" onClick={KidsModeOff}  src={adultMode}/> 
-                            </div>)
-                        }
+                        
                         <div className="centered-panel">
                             <Buttons startGameMenu={openNew} openPause={openPause}/>
                             {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}

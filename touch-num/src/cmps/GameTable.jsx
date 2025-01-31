@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import {  useMemo, useState } from "react";
 import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { Hint } from "./Hint";
-import { UseFirstRenderEffect } from "./UseFirstRenderEffect";
 import { useSelector, useDispatch } from "react-redux";
-import { startGame, resetGameAction } from "../store/game/game.reducer";
+import { startGame, resetGameAction, activateKidsMode, disableKidsMode } from "../store/game/game.reducer";
+import kidMode from "../imgs/kidsMode.png"
+import adultMode from "../imgs/adultMode.jfif"
 
 export function GameTable ({ muteEffects, win, isWin}) {
     const [currentNumber, setCurrentNumber] = useState(0);
@@ -77,9 +78,36 @@ export function GameTable ({ muteEffects, win, isWin}) {
             win()
     }
 
+    
+    function KidsModeOff() {
+        dispatch(disableKidsMode())
+        dispatch(resetGameAction())
+    }
+
+    function KidsModeOn() {
+        dispatch(activateKidsMode())
+        dispatch(resetGameAction()); // ✅ Set gameStarted to false
+    
+        setTimeout(() => {
+            dispatch(startGame()); // ✅ Restart game
+            console.log("Game restarted!");
+        }, 0); // Small delay to trigger re-render
+    }
+
     return (
-        <div className="game-table-container">
-            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode}/>)}
+        <div className={!kidsMode ? "hints-modes-container" : "hints-modes-kids-container"}>
+            {!kidsMode && ( 
+                <div className="kids-icon-container">
+                    <img className="kids-mode-image" onClick={KidsModeOn}  src={kidMode}/> 
+                </div>)
+            }
+            {kidsMode && ( 
+                <div className="adult-icon-container">
+                    <img className="adult-mode-image" onClick={KidsModeOff}  src={adultMode}/> 
+                </div>)
+            }
+            &nbsp; &nbsp;
+            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode} />)}
             { gameStarted && !isWin ? 
                 ( <table className="table">
                     <tbody>
