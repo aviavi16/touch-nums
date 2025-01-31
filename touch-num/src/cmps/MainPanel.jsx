@@ -6,11 +6,12 @@ import { Victory } from "./Victory";
 import mapBg from "../imgs/map.png"
 import { GameTable } from "./GameTable";
 import { useDispatch, useSelector } from "react-redux";
-import {  activateEffects, activateSound, muteEffects, muteSound, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
+import { activateSound, muteEffects, muteSound, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
 import VolumeIcon from '../svg/volume.svg?react'
 import MuteIcon from '../svg/mute.svg?react'
+import translations from "../translations.json";
 
-export function MainPanel(){
+export function MainPanel({ lang }){
     const gameStarted = useSelector((state) => state.gameStarted);
     const gamePaused = useSelector((state) => state.gamePaused);
     const kidsMode = useSelector((state) => state.kidsMode);
@@ -169,6 +170,11 @@ export function MainPanel(){
                 </div>
 
                 <section className="table-container">
+                <div>
+                    <button>{translations[lang].start}</button>
+                    <button>{translations[lang].pause}</button>
+                    <button>{translations[lang].resume}</button>
+                </div>
                     <dialog className="modal">
                         <h3> Please Select Difficulty: </h3>
                         <select  

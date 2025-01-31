@@ -1,0 +1,12 @@
+{
+    "en": {
+        "start": "Start Game",
+        "pause": "Pause Game",
+        "resume": "Resume Game"
+    },
+    "he": {
+        "start": "התחל משחק",
+        "pause": "השהה משחק",
+        "resume": "המשך משחק"
+    }
+}

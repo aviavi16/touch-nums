@@ -1,86 +1,67 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { pauseGame, resumeGame } from "./store/game/game.reducer";
 import { Header } from "./cmps/Header";
 import { MainPanel } from "./cmps/MainPanel";
 import { Footer } from "./cmps/Footer";
 import { InstructionsMenu } from "./cmps/InstructionsMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { pauseGame, resumeGame } from "./store/game/game.reducer";
-import sound from "./sounds/sound2.mp3"; 
-import { useEffect, useRef } from "react";
+import { LanguageToggle } from "./cmps/LanguageToggle";
+import translations from "./translations.json";
+import sound from "./sounds/sound2.mp3";
 
 export function App() {
     const muteSound = useSelector((state) => state.muteSound);
-
-    const dispatch = useDispatch(); // Redux dispatcher
+    const dispatch = useDispatch();
     const audioRef = useRef(null);
+    const [lang, setLang] = useState("en"); // Track language
 
     useEffect(() => {
-        onMuteSound()
-    }, [muteSound]); // Play when the component mounts
+        onMuteSound();
+    }, [muteSound]);
 
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.muted = false;
             audioRef.current.play();
         }
-    }, []); // Play when the component mounts
+    }, []);
 
-
-  
-    // Function to mute/unmute sound
     function onMuteSound() {
         if (audioRef.current) {
             audioRef.current.muted = muteSound;
         }
     }
 
-    // // Function to mute/unmute sound
-    // function onResumeSound() {
-    //     console.log('here2')
-    //     if (audioRef.current) {
-    //         audioRef.current.muted = muteSound;
-    //     }
-    // }
-
-    
-    function getWinTime(){
-        console.log('timer:', timer)
-        return timer
+    function closeInstructions() {
+        dispatch(resumeGame());
+        document.querySelector(".instructions-modal").close();
     }
 
-        
-    function closeInstructions(){
-        dispatch(resumeGame())
-        document.querySelector('.instructions-modal').close()
-    }
-
-    function openInstructions(){
-        dispatch(pauseGame())
-        const elName = document.querySelector('.instructions-modal')
-        elName.showModal() 
+    function openInstructions() {
+        dispatch(pauseGame());
+        document.querySelector(".instructions-modal").showModal();
     }
 
     function flashMsg(msg) {
-        const el = document.querySelector('.user-msg')
-
-        el.innerText = msg
-        el.classList.add('open')
-        setTimeout(() => el.classList.remove('open'), 3000)
+        const el = document.querySelector(".user-msg");
+        el.innerText = msg;
+        el.classList.add("open");
+        setTimeout(() => el.classList.remove("open"), 3000);
     }
 
     return (
         <section className="app">
             <audio ref={audioRef} src={sound} loop autoPlay />
             <div className="header-container">
-                <Header openInstructions={openInstructions}/>
+                <Header openInstructions={openInstructions} lang={lang} setLang={setLang} />
             </div>
 
-            <dialog className="instructions-modal">    
-                <InstructionsMenu onCloseInstructions={closeInstructions}/>
+            <dialog className="instructions-modal">
+                <InstructionsMenu onCloseInstructions={closeInstructions} />
             </dialog>
-            <MainPanel />           
+
+            <MainPanel lang={lang} />
             <Footer />
         </section>
-        
-
-    )
+    );
 }

@@ -94,6 +94,18 @@
     background: none;
 }
 
+.flag-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.flag-button img {
+    width: 30px;
+    height: 20px;
+}
+
 @media screen and (min-width : 922px) {
     .header-container{
         font-size: 16px;
