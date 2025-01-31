@@ -192,7 +192,7 @@ export function MainPanel(){
                     </dialog>
 
                     <dialog className="pause-modal">    
-                        <PauseMenu onClosePause={onClosePause} restart={restartGame} onMuteEffects={onMuteEffects} onMuteSound={onMuteSound}/>
+                        <PauseMenu onClosePause={onClosePause} restart={restartGame} />
                     </dialog>
 
                     { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}

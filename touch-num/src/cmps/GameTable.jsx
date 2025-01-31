@@ -7,12 +7,13 @@ import { startGame, resetGameAction, activateKidsMode, disableKidsMode } from ".
 import kidMode from "../imgs/kidsMode.png"
 import adultMode from "../imgs/adultMode.jfif"
 
-export function GameTable ({ muteEffects, win, isWin}) {
+export function GameTable ({  win, isWin}) {
     const [currentNumber, setCurrentNumber] = useState(0);
     const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
     const dispatch = useDispatch(); // Redux dispatcher
     const difficulty = useSelector((state) => state.difficulty);
     const kidsMode = useSelector((state) => state.kidsMode);
+    const muteEffects = useSelector((state) => state.muteEffects);
 
     const resetGame = () => {
         console.log("Resetting game...");
@@ -107,7 +108,7 @@ export function GameTable ({ muteEffects, win, isWin}) {
                 </div>)
             }
             &nbsp; &nbsp;
-            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} kidsMode={kidsMode} />)}
+            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} />)}
             { gameStarted && !isWin ? 
                 ( <table className="table">
                     <tbody>

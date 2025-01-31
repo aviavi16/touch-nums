@@ -1,6 +1,7 @@
 import resumeBtn from "../imgs/resume-btn.webp"
 import { CustomCheckbox } from "./CustomCheckbox"
-export function PauseMenu({onClosePause, restart, onMuteEffects, onMuteSound} ){
+export function PauseMenu({onClosePause, restart } ){
+
     return (
         <section className="pause-menu-container">
             <div className="inner">
@@ -13,11 +14,11 @@ export function PauseMenu({onClosePause, restart, onMuteEffects, onMuteSound} ){
                     <div className="options-display-container">
                         <div className="pause-menu-music">
                             <span> Music </span>
-                            <CustomCheckbox  onMute={onMuteSound} />
+                            <CustomCheckbox controll="sound" />
                         </div>
                         <div className="pause-menu-effects">
                             <span> Effects </span>
-                            <CustomCheckbox onMute={onMuteEffects} />
+                            <CustomCheckbox controll="effects" />
                         </div>
                         <br/>
                         <div className="pause-menu-restart">

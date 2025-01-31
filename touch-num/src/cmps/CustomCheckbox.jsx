@@ -1,10 +1,20 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { activateEffects, activateSound, muteEffects, muteSound } from "../store/game/game.reducer";
 
-export function CustomCheckbox({ onMute }){
-    const [isChecked, setIsChecked] = useState(false);
-    
+export function CustomCheckbox({ controll }){
+    const [isChecked, setIsChecked] = useState(true);
+    const dispatch = useDispatch(); // Redux dispatcher
+
     const toggleCheckbox = () => {
-        onMute();
+        if(controll == "sound"){
+            if ( isChecked ) dispatch(muteSound())
+                else dispatch(activateSound())
+        }
+        if(controll == "effects"){
+            if ( isChecked ) dispatch(muteEffects())
+                else dispatch(activateEffects())
+        }
         setIsChecked(!isChecked);
     }
 
