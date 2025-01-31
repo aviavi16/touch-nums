@@ -1,5 +1,4 @@
 import { Buttons } from "./Buttons";
-import { Hint } from "./Hint";
 import { StopWatch } from "./StopWatch";
 import { PauseMenu } from "./PauseMenu";
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {  activateEffects, activateSound, muteEffects, muteSound, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
 import VolumeIcon from '../svg/volume.svg?react'
 import MuteIcon from '../svg/mute.svg?react'
-
 
 export function MainPanel(){
     const gameStarted = useSelector((state) => state.gameStarted);
@@ -24,7 +22,7 @@ export function MainPanel(){
     let  timeInterval = useRef(null)
     const [ tableSize, setTableSize] = useState(16)
     const dispatch = useDispatch(); // Redux dispatcher
-    const[ isMute, setIsMute ] = useState( false )
+    const isMute = useSelector((state) => state.muteSound);
     var gDifficulty = 'Easy'
     var gSize = 16; 
 
@@ -59,7 +57,7 @@ export function MainPanel(){
 
     function openNew(){
         const elName = document.querySelector('.modal')
-        elName.showModal()   
+        elName.showModal()
     }
 
     const handlePause = () => {
@@ -141,15 +139,11 @@ export function MainPanel(){
     }
     
     function muteVolume(){
-        setIsMute(true)
-        dispatch(muteSound())
-        dispatch(muteEffects())
+        dispatch(muteSound());
     }
-
+    
     function activateVolume(){
-        setIsMute(false)
-        dispatch(activateSound())
-        dispatch(activateEffects())
+        dispatch(activateSound());
     }
    
     return (
@@ -161,8 +155,11 @@ export function MainPanel(){
             <div className="app-container">
                 <div className="buttons-watch-container">
                     <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
-                        { !isMute ? (<MuteIcon alt="Mute Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={muteVolume} />) :
-                        (<VolumeIcon alt="Sound Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={activateVolume} />) }
+                        { !isMute ? (
+                            <MuteIcon alt="Mute Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={muteVolume} />
+                        ) : (
+                            <VolumeIcon alt="Sound Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={activateVolume} />
+                        )}
                         <div className="centered-panel">
                             <Buttons startGameMenu={openNew} openPause={openPause}/>
                             {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}

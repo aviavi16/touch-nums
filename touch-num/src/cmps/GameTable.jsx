@@ -29,7 +29,8 @@ export function GameTable ({  win, isWin}) {
     const shuffledNums = useMemo(() => {
         if (!gameStarted) return []; // Avoid rendering empty numbers before game starts
         const effectiveDifficulty = kidsMode ? 16 : difficulty; // ✅ Force 16 if kidsMode is ON
-
+        setCurrentNumber(0)
+        
         let allNums = Array.from({ length: effectiveDifficulty }, (_, i) => i)
         allNums = shuffleArray([...allNums])
         // Split into rows of sqrt difficulty columns each
