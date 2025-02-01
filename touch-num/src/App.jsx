@@ -61,7 +61,7 @@ export function App() {
             </dialog>
 
             <MainPanel lang={lang} />
-            <Footer />
+            <Footer lang={lang} />
         </section>
     );
 }

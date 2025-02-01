@@ -1,7 +1,8 @@
-export function Footer(){
+import translations from "../translations.json";
+export function Footer({ lang }){   
     return (
         <div className="title-container">
-            <span className="title"> A game of learning and fun! </span>
+            <span className="title">{translations[lang].footer} </span>
         </div>
     )
 }

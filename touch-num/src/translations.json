@@ -26,7 +26,8 @@
         "effects": "Effects",
         "restart": "Restart",
         "menuTitle": "OPTIONS",
-        "resumeBtn": "Resume"
+        "resumeBtn": "Resume",
+        "footer": " A game of learning and fun!"
     },
     "he": {
         "start": "משחק חדש",
@@ -55,6 +56,7 @@
         "effects": "אפקטים",
         "restart": "התחלה מחדש",
         "menuTitle": "אפשרויות",
-        "resumeBtn": "המשך"
+        "resumeBtn": "המשך",
+        "footer": "משחק של למידה וכיף!"
     }
 }
