@@ -84,7 +84,7 @@ export function MainPanel({ lang }){
                 changeDifficulty(16)
                 break;
         }
-    
+        setTimer(0)
         dispatch(startGame())
         onCloseModal();
     }
@@ -126,7 +126,8 @@ export function MainPanel({ lang }){
         if(el){
             el.className = 'victory-container';
         }
-        dispatch.resetGameAction()
+        
+        dispatch(resetGameAction())
         setNextNum(0)
         clearInterval(timeInterval.current);
         setTimer(0);
@@ -149,7 +150,7 @@ export function MainPanel({ lang }){
    
     return (
         <div className="app-bg-container">
-            <Victory getTime={timer} onReset={handleReset} onPause={handleTest}/> 
+            <Victory getTime={timer} onReset={handleReset} onPause={handleTest} lang={lang} /> 
             
             {/* <div class="blinking-element">Blink Me!</div>
             <button id="blink-button" onClick={blink}>Start Blinking</button> */}
@@ -162,7 +163,7 @@ export function MainPanel({ lang }){
                             <VolumeIcon alt="Sound Icon" className={!kidsMode ? "icon" : "icon-kids"} onClick={activateVolume} />
                         )}
                         <div className="centered-panel">
-                            <Buttons startGameMenu={openNew} openPause={openPause}/>
+                            <Buttons startGameMenu={openNew} openPause={openPause} lang={lang}/>
                             {gameStarted && (<StopWatch time={timer} kidsMode={kidsMode }/>)}
                         </div>
                       
@@ -170,37 +171,31 @@ export function MainPanel({ lang }){
                 </div>
 
                 <section className="table-container">
-                <div>
-                    <button>{translations[lang].start}</button>
-                    <button>{translations[lang].pause}</button>
-                    <button>{translations[lang].resume}</button>
-                </div>
                     <dialog className="modal">
-                        <h3> Please Select Difficulty: </h3>
+                        <h3> {translations[lang].dificultyHeader} </h3>
                         <select  
                             className="difficulty-container"
                             name="difficulty"
                         >  
-                        <option value="Easy"> Easy </option>
-                        <option value="Medium"> Medium </option>
-                        <option value="Hard"> Hard </option>
+                        <option value="Easy"> {translations[lang].dificulty1} </option>
+                        <option value="Medium"> {translations[lang].dificulty2} </option>
+                        <option value="Hard"> {translations[lang].dificulty3} </option>
 
 
                         </select>
                     
 
-                        <button name="cancel" onClick={onCloseModal}> Cancel </button>
-                        <button name="start" onClick={startGameMenu}> Start </button>
+                        <button name="cancel" onClick={onCloseModal}> {translations[lang].cancelBtn} </button>
+                        <button name="start" onClick={startGameMenu}> {translations[lang].startBtn} </button>
                         
                     </dialog>
 
                     <dialog className="pause-modal">    
-                        <PauseMenu onClosePause={onClosePause} restart={restartGame} />
+                        <PauseMenu onClosePause={onClosePause} restart={restartGame} lang={lang} />
                     </dialog>
 
                     { !isWin ? <img src={mapBg} className={kidsMode ? "mapBg big" : "mapBg"} /> : ''}
-                    {/* { !isWin ? <div className="myDynamicTable"></div> : ''} */}
-                    <GameTable muteEffects={muteEffects} win={win} isWin={isWin}/>
+                    <GameTable muteEffects={muteEffects} win={win} isWin={isWin} lang={lang} />
                     <div className="user-msg"></div>
                 </section>
 

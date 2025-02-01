@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import hint from "../imgs/hint.png"
 import { useEffect, useRef, useState } from "react";
+import translations from "../translations.json";
 
-export function Hint( { nextNum } ){
+export function Hint( { nextNum, lang } ){
     const difficulty = useSelector((state) => state.difficulty);
     const [ showLightbolb, setShowLightbolb ] = useState( false )
     const kidsMode = useSelector((state) => state.kidsMode);
@@ -38,7 +39,7 @@ export function Hint( { nextNum } ){
             </div>) : ""}
             &nbsp; &nbsp;
             { difficulty == 16 || showHintState ? (<div className="timer-box">
-                <span> Next: </span>
+                <span> {translations[lang].hint} </span>
             </div>) : ""} &nbsp;
             { difficulty == 16 || showHintState ? (<div className="colons"> <span> : </span></div>) : ""}  &nbsp;
             { difficulty == 16 || showHintState ? (<div className="timer-box">

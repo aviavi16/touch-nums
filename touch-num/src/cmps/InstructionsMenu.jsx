@@ -2,30 +2,31 @@ import resumeBtn from "../imgs/resume-btn.webp"
 import kidMode from "../imgs/kidsMode.png"
 import adultMode from "../imgs/adultMode.jfif"
 import instructionsGif from '../imgs/instructions-gif.gif'
+import translations from "../translations.json";
 
-export function InstructionsMenu({onCloseInstructions } ){
+export function InstructionsMenu({onCloseInstructions ,lang } ){
     return (
         <section className="instructions-menu-container">
                 <div className="instructions-sub-menu-container">
                     <div className="instructions-menu-title">
                         <div className="title-wrap">
-                            How to Play:
+                            {translations[lang].instructionsDesc}
                             <p className="how-to-play-description">
-                                You will need to click the numbers by the right order.
+                                {translations[lang].instructionsTxt1}   
                                 <br/>
                             </p>
                             <img className="instructions-gif" src={instructionsGif}/>
                             <p className="how-to-play-description">
-                                The faster you do, the better the score!
+                                {translations[lang].instructionsTxt2}
                                 <br/>
-                                good luck!
+                                {translations[lang].instructionsTxt3}
                             </p>
                             <p className="how-to-play-description-ps">
-                                p.s
+                                {translations[lang].instructionsTxt4}
                                 <br/>
-                                For kid's mode, click the icon on top.
+                                {translations[lang].instructionsTxt5}
                                 <br/>
-                                To go back, click the adult mode icon.
+                                {translations[lang].instructionsTxt6}
                             </p>
                             <div className="instructions-images">
                                 <img className="instructions-image" src={kidMode}/>

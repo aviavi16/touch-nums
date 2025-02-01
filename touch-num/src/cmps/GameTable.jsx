@@ -7,7 +7,7 @@ import { startGame, resetGameAction, activateKidsMode, disableKidsMode } from ".
 import kidMode from "../imgs/kidsMode.png"
 import adultMode from "../imgs/adultMode.jfif"
 
-export function GameTable ({  win, isWin}) {
+export function GameTable ({  win, isWin , lang }) {
     const [currentNumber, setCurrentNumber] = useState(0);
     const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
     const dispatch = useDispatch(); // Redux dispatcher
@@ -109,7 +109,7 @@ export function GameTable ({  win, isWin}) {
                 </div>)
             }
             &nbsp; &nbsp;
-            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} />)}
+            {gameStarted && !isWin && (<Hint className="hint-container" nextNum={currentNumber} lang={lang} />)}
             { gameStarted && !isWin ? 
                 ( <table className="table">
                     <tbody>

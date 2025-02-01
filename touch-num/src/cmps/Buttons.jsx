@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
+import translations from "../translations.json";
 
-export function Buttons({ startGameMenu, openPause}) {
+export function Buttons({ startGameMenu, openPause, lang}) {
   const kidsMode = useSelector((state) => state.kidsMode);
   const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
 
@@ -14,7 +15,8 @@ export function Buttons({ startGameMenu, openPause}) {
               onClick={openPause}
               className="new-game-btn"
             >
-              Options
+              {translations[lang].options}
+              
             </button>
           ) : (
             <button
@@ -23,7 +25,8 @@ export function Buttons({ startGameMenu, openPause}) {
               onClick={startGameMenu}
               className="new-game-btn"
             >
-              New Game
+              {translations[lang].start}
+              
             </button>
           )}
         </section>

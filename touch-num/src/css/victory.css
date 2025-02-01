@@ -35,10 +35,6 @@ html {
   color: #018bfb;
 }
 
-.victory:after {
-  content: "Victory";
-}
-
 .win-title-container{
   position: fixed;
   top: 40px;

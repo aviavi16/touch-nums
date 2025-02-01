@@ -57,7 +57,7 @@ export function App() {
             </div>
 
             <dialog className="instructions-modal">
-                <InstructionsMenu onCloseInstructions={closeInstructions} />
+                <InstructionsMenu onCloseInstructions={closeInstructions} lang={lang} />
             </dialog>
 
             <MainPanel lang={lang} />

@@ -72,6 +72,32 @@
     position: relative;
     text-shadow: 1px 1px 1px #7c4d33;
     box-shadow: 0 12px #7c4d33;
+    cursor: pointer;
+  }
+
+  .options-button:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+
+  .options-resume-button {
+    background-color: hsl(31.94deg 96.88% 74.9%);
+    color: hsl(24.67deg 88.43% 23.73%);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva;
+    padding: 2px 4px;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    text-shadow: 1px 1px 1px #7c4d33;
+    box-shadow: 0 2px #7c4d33;
+    cursor: pointer;
+  }
+
+  .options-resume-button:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
   }
 
   .options-display-container{
@@ -247,6 +273,11 @@
     font-size: 20px; /* Adjust font size */
     font-weight: 700;
   }
+
+  .options-resume-button {
+    font-size: 16px; /* Adjust font size */
+    font-weight: 700;
+  }
   
   .options-display-container{
     left: 140px;
@@ -285,6 +316,10 @@
     -webkit-text-stroke: 2px black; /* width and color */
   }
 
+  .options-resume-button {
+    font-size: 20px; /* Adjust font size */
+  }
+
   .options-display-container{
     font-size: 30px;
   }
@@ -298,6 +333,11 @@
   
   .options-button {
     font-size: 42px; /* Adjust font size */
+    font-weight: 700;
+  }
+
+  .options-resume-button {
+    font-size: 30px; /* Adjust font size */
     font-weight: 700;
   }
 
