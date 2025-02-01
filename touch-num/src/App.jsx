@@ -13,22 +13,29 @@ export function App() {
     const muteSound = useSelector((state) => state.muteSound);
     const dispatch = useDispatch();
     const audioRef = useRef(null);
-    const [lang, setLang] = useState("en"); // Track language
+    const [lang, setLang] = useState("en"); 
+    const [isPlaying, setIsPlaying] = useState(false); 
 
     useEffect(() => {
         onMuteSound();
     }, [muteSound]);
 
     useEffect(() => {
-        if (audioRef.current) {
+        if (isPlaying && audioRef.current) {
             audioRef.current.muted = false;
-            audioRef.current.play();
+            audioRef.current.play().catch(err => console.error("Audio play error:", err));
         }
-    }, []);
+    }, [isPlaying]);
 
     function onMuteSound() {
         if (audioRef.current) {
             audioRef.current.muted = muteSound;
+        }
+    }
+
+    function handleUserInteraction() {
+        if (!isPlaying) {
+            setIsPlaying(true);
         }
     }
 
@@ -50,8 +57,8 @@ export function App() {
     }
 
     return (
-        <section className="app">
-            <audio ref={audioRef} src={sound} loop autoPlay />
+        <section className="app" onClick={handleUserInteraction}>
+            <audio ref={audioRef} src={sound} loop />
             <div className="header-container">
                 <Header openInstructions={openInstructions} lang={lang} setLang={setLang} />
             </div>
@@ -62,6 +69,7 @@ export function App() {
 
             <MainPanel lang={lang} />
             <Footer lang={lang} />
+            {!isPlaying && <button onClick={handleUserInteraction}>Click to Play Sound</button>}
         </section>
     );
 }
