@@ -1,8 +1,13 @@
-.instructions-menu-container{
+.instructions-menu-eng-container{
     display: flex;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
+    direction: ltr;
+}
+
+.instructions-menu-heb-container{
+    direction: rtl;
 }
 
 .instructions-sub-menu-container{

@@ -172,7 +172,7 @@ export function MainPanel({ lang }){
 
                 <section className="table-container">
                     <dialog className="modal">
-                        <h3> {translations[lang].dificultyHeader} </h3>
+                        <h3 className={lang === 'he' ? "dificulty-header-heb": "dificulty-header-eng"}> {translations[lang].dificultyHeader} </h3>
                         <select  
                             className="difficulty-container"
                             name="difficulty"

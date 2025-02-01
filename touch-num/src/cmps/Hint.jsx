@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import hint from "../imgs/hint.png"
 import { useEffect, useRef, useState } from "react";
-import translations from "../translations.json";
+import { HintHelper } from "./HintHelper";
 
 export function Hint( { nextNum, lang } ){
     const difficulty = useSelector((state) => state.difficulty);
@@ -38,13 +38,7 @@ export function Hint( { nextNum, lang } ){
             <img src={hint} className="image-hint" onClick={showHint}/>
             </div>) : ""}
             &nbsp; &nbsp;
-            { difficulty == 16 || showHintState ? (<div className="timer-box">
-                <span> {translations[lang].hint} </span>
-            </div>) : ""} &nbsp;
-            { difficulty == 16 || showHintState ? (<div className="colons"> <span> : </span></div>) : ""}  &nbsp;
-            { difficulty == 16 || showHintState ? (<div className="timer-box">
-                <div className="hint-wrapping"><div className="hint">{ nextNum } </div></div> 
-            </div>) : "" }
+            { difficulty == 16 || showHintState ? <HintHelper  nextNum={nextNum} lang={lang}/> : ""} 
         </> 
     }
 

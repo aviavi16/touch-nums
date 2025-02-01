@@ -6,7 +6,7 @@ import translations from "../translations.json";
 
 export function InstructionsMenu({onCloseInstructions ,lang } ){
     return (
-        <section className="instructions-menu-container">
+        <section className={lang === 'he' ? "instructions-menu-heb-container": "instructions-menu-eng-container"}>
                 <div className="instructions-sub-menu-container">
                     <div className="instructions-menu-title">
                         <div className="title-wrap">
