@@ -5,39 +5,41 @@ import { Header } from "./cmps/Header";
 import { MainPanel } from "./cmps/MainPanel";
 import { Footer } from "./cmps/Footer";
 import { InstructionsMenu } from "./cmps/InstructionsMenu";
-import { LanguageToggle } from "./cmps/LanguageToggle";
-import translations from "./translations.json";
 import sound from "./sounds/sound2.mp3";
 
 export function App() {
     const muteSound = useSelector((state) => state.muteSound);
     const dispatch = useDispatch();
     const audioRef = useRef(null);
-    const [lang, setLang] = useState("en"); 
-    const [isPlaying, setIsPlaying] = useState(false); 
+    const [lang, setLang] = useState("en");
+    const [userInteracted, setUserInteracted] = useState(false);
 
     useEffect(() => {
-        onMuteSound();
-    }, [muteSound]);
+        const audio = audioRef.current;
+        if (!audio) return;
 
-    useEffect(() => {
-        if (isPlaying && audioRef.current) {
-            audioRef.current.muted = false;
+        audio.muted = true; // Start muted so autoplay works
+        audio.play().catch(err => console.error("Autoplay blocked:", err));
+    }, []);
+
+    function handleUserInteraction(event) {
+        if (userInteracted) return; // Ignore if already interacted
+
+        const clickedMuteButton = event.target.closest(".mute-button"); // Check if mute button was clicked
+
+        setUserInteracted(true);
+
+        if (!clickedMuteButton && audioRef.current) {
+            audioRef.current.muted = muteSound; // Unmute if first interaction wasn't the mute button
             audioRef.current.play().catch(err => console.error("Audio play error:", err));
         }
-    }, [isPlaying]);
+    }
 
-    function onMuteSound() {
-        if (audioRef.current) {
+    useEffect(() => {
+        if (userInteracted && audioRef.current) {
             audioRef.current.muted = muteSound;
         }
-    }
-
-    function handleUserInteraction() {
-        if (!isPlaying) {
-            setIsPlaying(true);
-        }
-    }
+    }, [muteSound, userInteracted]);
 
     function closeInstructions() {
         dispatch(resumeGame());
@@ -49,16 +51,9 @@ export function App() {
         document.querySelector(".instructions-modal").showModal();
     }
 
-    function flashMsg(msg) {
-        const el = document.querySelector(".user-msg");
-        el.innerText = msg;
-        el.classList.add("open");
-        setTimeout(() => el.classList.remove("open"), 3000);
-    }
-
     return (
         <section className="app" onClick={handleUserInteraction}>
-            <audio ref={audioRef} src={sound} loop />
+            <audio ref={audioRef} src={sound} loop muted autoPlay />
             <div className="header-container">
                 <Header openInstructions={openInstructions} lang={lang} setLang={setLang} />
             </div>
@@ -67,9 +62,8 @@ export function App() {
                 <InstructionsMenu onCloseInstructions={closeInstructions} lang={lang} />
             </dialog>
 
-            <MainPanel lang={lang} />
+            <MainPanel lang={lang} isMute={muteSound} userInteracted={userInteracted} />
             <Footer lang={lang} />
-            {!isPlaying && <button onClick={handleUserInteraction}>Click to Play Sound</button>}
         </section>
     );
 }
