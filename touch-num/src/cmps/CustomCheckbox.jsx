@@ -4,8 +4,7 @@ import { activateEffects, activateSound, muteEffects, muteSound } from "../store
 
 export function CustomCheckbox({ controll }) {
     const muteSoundVar = useSelector((state) => state.muteSound);
-    const muteEffectVar = useSelector((state) => state.muteEffect);
-
+    const muteEffectVar = useSelector((state) => state.muteEffects);
     const [isChecked, setIsChecked] = useState(controll === "sound" ? !muteSoundVar : !muteEffectVar);
     const dispatch = useDispatch();
 

@@ -6,7 +6,7 @@ import { Victory } from "./Victory";
 import mapBg from "../imgs/map.png"
 import { GameTable } from "./GameTable";
 import { useDispatch, useSelector } from "react-redux";
-import { activateSound, muteEffects, muteSound, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
+import { activateEffects, activateSound, muteEffects, muteSound, pauseGame, resetGameAction, resumeGame, setDifficulty, startGame } from "../store/game/game.reducer";
 import VolumeIcon from '../svg/volume.svg?react'
 import MuteIcon from '../svg/mute.svg?react'
 import translations from "../translations.json";
@@ -24,7 +24,8 @@ export function MainPanel({ lang , userInteracted }){
     const [ tableSize, setTableSize] = useState(16)
     const dispatch = useDispatch(); // Redux dispatcher
     const isMute = useSelector((state) => state.muteSound);
-    
+    const isEffects = useSelector((state) => state.muteEffects);
+
     var gDifficulty = 'Easy'
     var gSize = 16; 
 
@@ -143,10 +144,12 @@ export function MainPanel({ lang , userInteracted }){
     
     function muteVolume(){
         dispatch(muteSound());
+        dispatch(muteEffects());
     }
     
     function activateVolume(){
         dispatch(activateSound());
+        dispatch(activateEffects());
     }
    
     return (
@@ -159,7 +162,7 @@ export function MainPanel({ lang , userInteracted }){
                 <div className="buttons-watch-container">
                     <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
                         {userInteracted && ( // Hide button until user interacts
-                            !isMute ? (
+                            !isMute  || !isEffects ? (
                                 <MuteIcon 
                                     alt="Mute Icon" 
                                     className={!kidsMode ? "icon mute-button" : "icon-kids mute-button"} 
