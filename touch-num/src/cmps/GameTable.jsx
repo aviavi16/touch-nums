@@ -3,13 +3,14 @@ import boopSfx from '../sounds/mixkit-fairy-cartoon-success-voice-344.wav';
 import failSfx from '../sounds/mixkit-tech-break-fail-2947.wav';
 import { Hint } from "./Hint";
 import { useSelector, useDispatch } from "react-redux";
-import { startGame, resetGameAction, activateKidsMode, disableKidsMode } from "../store/game/game.reducer";
+import { startGame, resetGameAction, activateKidsMode, disableKidsMode, setDifficulty } from "../store/game/game.reducer";
 import kidMode from "../imgs/kidsMode.png"
 import adultMode from "../imgs/adultMode.jfif"
 
 export function GameTable ({  win, isWin , lang }) {
     const [currentNumber, setCurrentNumber] = useState(0);
-    const gameStarted = useSelector((state) => state.gameStarted); // ✅ Correct
+    const [winCondition, setWinCondition] = useState(null);
+    const gameStarted = useSelector((state) => state.gameStarted); 
     const dispatch = useDispatch(); // Redux dispatcher
     const difficulty = useSelector((state) => state.difficulty);
     const kidsMode = useSelector((state) => state.kidsMode);
@@ -28,7 +29,11 @@ export function GameTable ({  win, isWin , lang }) {
     // ✅ Shuffle numbers only when the game starts
     const shuffledNums = useMemo(() => {
         if (!gameStarted) return []; // Avoid rendering empty numbers before game starts
+        if (kidsMode){
+            setDifficulty(16)
+        }
         const effectiveDifficulty = kidsMode ? 16 : difficulty; // ✅ Force 16 if kidsMode is ON
+        setWinCondition(effectiveDifficulty)
         setCurrentNumber(0)
         
         let allNums = Array.from({ length: effectiveDifficulty }, (_, i) => i)
@@ -75,8 +80,8 @@ export function GameTable ({  win, isWin , lang }) {
             sound.play(); // Play the sound
         }
         setCurrentNumber (prev => prev + 1)
-        console.log('currentNumber:', currentNumber,  " ", difficulty)
-        if ( currentNumber === difficulty - 1) 
+        console.log('currentNumber:', currentNumber,  " ", winCondition)
+        if ( currentNumber === winCondition - 1) 
             win()
     }
 

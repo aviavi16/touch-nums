@@ -1,8 +1,17 @@
-.title-container{
+.title-eng-container{
     display: flex;
     align-content: center;
     flex-wrap: wrap;
     justify-content: right;
+    direction: ltr;
+}
+
+.title-heb-container{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: right;
+    direction: rtl;
 }
 
 .title{

@@ -20,13 +20,15 @@ export function InstructionsMenu({onCloseInstructions ,lang } ){
                                 {translations[lang].instructionsTxt2}
                                 <br/>
                                 {translations[lang].instructionsTxt3}
+                                <br/>
+                                {translations[lang].instructionsTxt4}
                             </p>
                             <p className="how-to-play-description-ps">
-                                {translations[lang].instructionsTxt4}
-                                <br/>
                                 {translations[lang].instructionsTxt5}
                                 <br/>
                                 {translations[lang].instructionsTxt6}
+                                <br/>
+                                {translations[lang].instructionsTxt7}
                             </p>
                             <div className="instructions-images">
                                 <img className="instructions-image" src={kidMode}/>
