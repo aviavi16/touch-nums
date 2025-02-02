@@ -162,17 +162,17 @@ export function MainPanel({ lang , userInteracted }){
                 <div className="buttons-watch-container">
                     <div className={kidsMode ? "display-panel-container kids" : "display-panel-container"}>
                         {userInteracted && ( // Hide button until user interacts
-                            !isMute  || !isEffects ? (
+                            isMute  && isEffects ? (
                                 <MuteIcon 
                                     alt="Mute Icon" 
                                     className={!kidsMode ? "icon mute-button" : "icon-kids mute-button"} 
-                                    onClick={muteVolume} 
+                                    onClick={activateVolume} 
                                 />                                     
                             ) : (
                                 <VolumeIcon 
                                     alt="Sound Icon" 
                                     className={!kidsMode ? "icon mute-button" : "icon-kids mute-button"} 
-                                    onClick={activateVolume} 
+                                    onClick={muteVolume} 
                                 />   
                             )
                         )}   
