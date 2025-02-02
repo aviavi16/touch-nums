@@ -30,6 +30,7 @@ export function MainPanel({ lang , userInteracted }){
     var gSize = 16; 
 
     useEffect(()=>{
+        if (isWin) return
         console.log("gamePaused changed:", gamePaused); // ✅ Debug log
 
         if (gamePaused) {
