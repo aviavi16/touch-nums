@@ -34,7 +34,7 @@ I decided to expand this project to create an engaging and fun way for my child 
 - **Design & Art Review** - Collaboration with designers and music professionals to make it visually and audibly appealing.
 
 ## Screenshots From The Game
-<img src="[https://your-image-url-1](https://github.com/user-attachments/assets/58e6a223-fa6e-4b98-a745-1078e60df351)" alt="Cocktail Preview 1" width="100">
+<img src="(https://github.com/user-attachments/assets/58e6a223-fa6e-4b98-a745-1078e60df351)" alt="Cocktail Preview 1" width="100">
 
 ## How to Play
 
