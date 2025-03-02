@@ -65,6 +65,11 @@ I decided to expand this project to create an engaging and fun way for my child 
    ```
 5. Open your browser and go to `http://localhost:3000/` to play!
 
+## Play Online
+
+You can play the game online here:
+👉 [Touch the Numbers - Live Version ] https://aviavi16.github.io/touch-nums/
+
 ## Future Improvements
 
 - **Leaderboard System**: Track best times across different difficulty levels.
