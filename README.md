@@ -1,5 +1,9 @@
 # Touch the Numbers (touch-nums)
-
+![Touch Numbers Preview 1](https://github.com/user-attachments/assets/58e6a223-fa6e-4b98-a745-1078e60df351)
+![Touch Numbers Preview 2](https://github.com/user-attachments/assets/6c3da055-7e28-42e3-97b9-aa41b9c32def)
+![Touch Numbers Preview 3](https://github.com/user-attachments/assets/76f924ae-0dc9-4841-b601-d38cb6e4855e)
+![Touch Numbers Preview 4](https://github.com/user-attachments/assets/570b4626-ce1d-4332-8adf-f44f77406ed5)
+![Touch Numbers Preview 5](https://github.com/user-attachments/assets/9d17d84c-448c-4fbf-ae91-fe2ae27c506c)
 ## About the Project
 
 **Touch the Numbers** is an interactive and engaging game designed to help players improve their number recognition skills by clicking numbers in sequence. The game starts with a shuffled board of numbers, and the player must click them in order from 1 to the highest number.
