@@ -1,6 +1,4 @@
 # Touch the Numbers (touch-nums)
-<img src="https://github.com/user-attachments/assets/9d17d84c-448c-4fbf-ae91-fe2ae27c506c" alt="Touch Numbers Instructions" width="540">
-
 ## About the Project
 
 **Touch the Numbers** is an interactive and engaging game designed to help players improve their number recognition skills by clicking numbers in sequence. The game starts with a shuffled board of numbers, and the player must click them in order from 1 to the highest number.
@@ -18,6 +16,8 @@ This project originated from an exercise in my Fullstack course at **Coding Acad
   - **High-Quality UI Design** with feedback from professional designers and artists.
 - **Built with React**: The original JavaScript and HTML exercise was upgraded to use **ReactJS**, making the game more scalable and maintainable.
 - **Responsive Design**: Fully functional across different screen sizes and devices.
+
+<img src="https://github.com/user-attachments/assets/9d17d84c-448c-4fbf-ae91-fe2ae27c506c" alt="Touch Numbers Instructions" width="540">
 
 ## Motivation
 
