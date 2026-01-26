@@ -1,19 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Touch Numbers</title>
-        <link rel="stylesheet" href="css/main.css">
-      <script type="module" crossorigin src="/touch-nums/assets/index-BVOJoY32.js"></script>
-      <link rel="stylesheet" crossorigin href="/touch-nums/assets/index-D9wu1ruj.css">
-    </head>
-    <body >
-        <div id="root" style="width: 100%; height: 100%;"></div>
+<script type="module" crossorigin src="/touch-nums/assets/index-BVOJoY32.js"></script>
+<link rel="stylesheet" crossorigin href="/touch-nums/assets/index-D9wu1ruj.css">
 
-       
-            
+<body>
+  <div id="root" style="width: 100%; height: 100%;"></div>
 
-        
-    </body>
-</html>
+  <!-- 1) file:// guard FIRST -->
+  <script>
+    (function () {
+      if (location.protocol === "file:") {
+        const msg =
+          "🚫 This app was opened via file://\n\n" +
+          "ES modules (type=\"module\") do NOT work reliably under file:// on Android.\n\n" +
+          "Please open this app via http://\n" +
+          "Example:\n" +
+          "• Vite dev server (npm run dev)\n" +
+          "• Local server (python -m http.server)\n";
+
+        alert(msg);
+
+        const el = document.createElement("pre");
+        el.style.cssText =
+          "position:fixed;inset:0;z-index:999999;" +
+          "background:#300;color:#ff8080;" +
+          "padding:16px;font:14px/1.5 monospace;white-space:pre-wrap;";
+        el.textContent = msg + "\n\nDetected protocol: " + location.protocol;
+        document.documentElement.appendChild(el);
+
+        // Stop here so module script won't even attempt to run
+        throw new Error("Blocked execution under file://");
+      }
+    })();
+  </script>
+
+  <!-- 2) debug overlay -->
+  <script>
+    (function () {
+      const start = Date.now();
+
+      function log(msg) {
+        try {
+          let el = document.getElementById("__dbg");
+          if (!el) {
+            el = document.createElement("pre");
+            el.id = "__dbg";
+            el.style.cssText =
+              "position:fixed;inset:0;z-index:999999;background:#0b0b0b;color:#00ff9c;" +
+              "padding:12px;margin:0;white-space:pre-wrap;overflow:auto;" +
+              "font:12px/1.45 monospace;";
+            document.documentElement.appendChild(el);
+          }
+          el.textContent += msg + "\n";
+        } catch (_) {}
+      }
+
+      function section(title) {
+        log("\n=== " + title + " ===");
+      }
+
+      section("BOOT");
+      log("Time: " + new Date().toISOString());
+      log("UA: " + navigator.userAgent);
+      log("Platform: " + navigator.platform);
+      log("Language: " + navigator.language);
+      log("Online: " + navigator.onLine);
+      log("Location: " + location.href);
+      log("Protocol: " + location.protocol);
+
+      log("Module URL: " + new URL("src/main.jsx", location.href).href);
+
+      section("FEATURE SUPPORT");
+      const features = {
+        moduleScript: "noModule" in HTMLScriptElement.prototype,
+        optionalChaining: (() => { try { eval("var a={b:1}; a?.b"); return true; } catch { return false; } })(),
+        nullish: (() => { try { eval("null ?? 1"); return true; } catch { return false; } })(),
+        arrowFn: (() => { try { eval("()=>{}"); return true; } catch { return false; } })(),
+        asyncAwait: (() => { try { eval("async function f(){}"); return true; } catch { return false; } })(),
+        crypto: !!window.crypto,
+        cryptoUUID: !!(window.crypto && crypto.randomUUID),
+      };
+      for (const [k, v] of Object.entries(features)) log(k + ": " + v);
+
+      section("DOM");
+      log("document.readyState: " + document.readyState);
+      log("#root exists: " + !!document.getElementById("root"));
+
+      section("ERRORS");
+      window.addEventListener("error", e => {
+        log("[ERROR]");
+        log("message: " + e.message);
+        log("file: " + e.filename);
+        log("line: " + e.lineno + ":" + e.colno);
+        if (e.error && e.error.stack) log(e.error.stack);
+      });
+
+      window.addEventListener("unhandledrejection", e => {
+        log("[UNHANDLED PROMISE]");
+        log(String(e.reason && (e.reason.stack || e.reason.message || e.reason)));
+      });
+
+      section("SCRIPT PROBE");
+      log("Inline script executed OK");
+      setTimeout(() => log("Timeout probe OK (" + (Date.now() - start) + "ms)"), 0);
+    })();
+  </script>
+
+  <!-- 3) module entry LAST -->
+</body>
